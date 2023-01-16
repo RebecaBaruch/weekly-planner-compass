@@ -1,8 +1,9 @@
 import React from 'react';
+import { Wrapper } from '../../global/globalStyles';
 
 function Register() {
     return(
-        <div>sim</div>
+        <Wrapper>sim</Wrapper>
     );
 }
 
