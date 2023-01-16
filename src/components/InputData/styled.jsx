@@ -19,10 +19,10 @@ export const TxtLabel = styled.label`
         }
         
         & ~ input{
-            width: 100%;
+            width: 379px;
         }` :
         `& ~ input{
-            width: 280px;    
+            width: 300px;    
         }` 
     }
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormWrapper, Form, MiddleWrapper, ImageForm } from '../../global/globalStyles';
+import { FormWrapper, Form, MiddleWrapper, ImageForm, SubTitle } from '../../global/globalStyles';
 import InputData from '../../components/InputData';
 import HeaderTitle from '../../components/HeaderTitle';
 import AccountButton from '../../components/AccountButton';
@@ -9,10 +9,9 @@ function Login() {
     return(
         <FormWrapper>
             <MiddleWrapper>
-
                 <Form action="">
                     <HeaderTitle title='Welcome,' >To continue browsing safely, log in to the <br></br>network.</HeaderTitle>
-
+                    <SubTitle>Login</SubTitle>
                     <InputData type='text' placeholder='user name' />
                     <InputData type='password' placeholder='password' />
 

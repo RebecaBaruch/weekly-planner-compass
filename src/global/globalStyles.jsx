@@ -35,9 +35,15 @@ export const MiddleWrapper = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    text-align: left;
     width: 50%;
     height: 100%;
     background: linear-gradient(180deg, #33383D 0%, #1C1D20 100%);
 `;
 
-export const SubTitle =  
+export const SubTitle =  styled.h2`
+    font-weight: 400;
+    font-size: 2rem;
+
+    color: #E0E0E0;
+`;

@@ -17,10 +17,8 @@ function Register() {
     return(
         <FormWrapper>
             <MiddleWrapper>
-
-                <HeaderTitle title='Welcome,' >Please, register to continue</HeaderTitle>
-
                 <Form action="" onSubmit={handlerSubmit}>
+                    <HeaderTitle title='Welcome,' >Please, register to continue</HeaderTitle>
                     <InputData type='text' placeholder='Your first name'>first name</InputData>
                     <InputData type='text' placeholder='Your last name'>last name</InputData>
                     <InputData type='birth-date' placeholder='MM/DD/YYYY'>birth date</InputData>
