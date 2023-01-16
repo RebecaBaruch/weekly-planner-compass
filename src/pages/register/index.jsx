@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormWrapper, Form, MiddleWrapper, ImageForm } from '../../global/globalStyles';
+import Label from '../../components/Label';
 import InputData from '../../components/InputData';
 import HeaderTitle from '../../components/HeaderTitle';
 import AccountButton from '../../components/AccountButton';
@@ -29,14 +30,42 @@ function Register() {
             <MiddleWrapper>
                 <Form action="" onSubmit={submitHandler}>
                     <HeaderTitle title='Welcome,' >Please, register to continue</HeaderTitle>
-                    <InputData type='text' placeholder='Your first name' />
-                    <InputData type='text' placeholder='Your last name' />
-                    <InputData type='birth-date' placeholder='MM/DD/YYYY' onChange={birthDateHandler} />
-                    <InputData type='text' placeholder='Your Country' />
-                    <InputData type='text' placeholder='Your City' />
-                    <InputData type='email' placeholder='A valid e-mail here' />
-                    <InputData type='password' placeholder='Your password' />
-                    <InputData type='password' placeholder='Comfirm your password' />
+                    <Label>
+                        first name
+                        <InputData type='text' placeholder='Your first name' />
+                    </Label>
+                    <Label>
+                        last name
+                        <InputData type='text' placeholder='Your last name' />
+                    </Label>
+                    <Label>
+                        birth date
+                        <InputData type='text' placeholder='Your last name' />
+                    </Label>
+                    <Label>
+                        birth date
+                        <InputData type='birth-date' placeholder='MM/DD/YYYY' onChange={birthDateHandler} />
+                    </Label>
+                    <Label>
+                        Country
+                        <InputData type='text' placeholder='Your Country' />
+                    </Label>
+                    <Label>
+                        City
+                        <InputData type='text' placeholder='Your City' />
+                    </Label>
+                    <Label>
+                        e-mail
+                        <InputData type='email' placeholder='A valid e-mail here' />
+                    </Label>
+                    <Label>
+                        password
+                        <InputData type='password' placeholder='Your password' />
+                    </Label>
+                    <Label>
+                        password
+                        <InputData type='password' placeholder='Comfirm your password' />
+                    </Label>
 
                     <AccountButton type='submit'>Register Now</AccountButton>
                 </Form>
