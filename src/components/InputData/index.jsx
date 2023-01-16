@@ -1,27 +1,19 @@
-import React from 'react';
-import { InputContainer, TxtLabel, Input} from './styled';
+import styled from  'styled-components';
 
-function InputData({ children, type, placeholder, onChange }) {
-    const birthDateHandler = (e) => {
-        let v = e.target.value.replace(/\D/g, "");
-    
-        v = v.replace(/(\d{2})(\d)/, "$1/$2");
-    
-        v = v.replace(/(\d{2})(\d)/, "$1/$2");
-    
-        e.target.value = v;
-    }; 
+const InputData = styled.input`
+    padding: 0.8rem;
+    width: 379px;
+    color: #E0E0E0;
+    background: #26292C;
+    border: 1px solid #FFFFFF;
+    border-radius: 50px;
+    -webkit-appearance: none;
+    appearance: none;
 
-    return(
-        <InputContainer>
-            <TxtLabel>{ children }</TxtLabel>
-
-            {(type == 'birth-date') ? 
-                <Input type={ type } placeholder={ placeholder } onChange={birthDateHandler} /> :
-                <Input type={ type } placeholder={ placeholder }  />
-            }
-        </InputContainer>
-    );
-}
+    &::placeholder {
+        color: #E0E0E0;
+        font-size: 0.7rem
+    }
+`;
 
 export default InputData;

@@ -9,24 +9,34 @@ import CompassLogo from '../../assets/logo.svg';
 function Register() {
     const navigate = useNavigate();
 
-    const handlerSubmit = (e) => {
+    const submitHandler = (e) => {
         e.preventDefault();
         navigate('/login');
     }
 
+    const birthDateHandler = (e) => {
+        let v = e.target.value.replace(/\D/g, "");
+    
+        v = v.replace(/(\d{2})(\d)/, "$1/$2");
+        v = v.replace(/(\d{2})(\d)/, "$1/$2");
+    
+        e.target.value = v;
+    }; 
+
+
     return(
         <FormWrapper>
             <MiddleWrapper>
-                <Form action="" onSubmit={handlerSubmit}>
+                <Form action="" onSubmit={submitHandler}>
                     <HeaderTitle title='Welcome,' >Please, register to continue</HeaderTitle>
-                    <InputData type='text' placeholder='Your first name'>first name</InputData>
-                    <InputData type='text' placeholder='Your last name'>last name</InputData>
-                    <InputData type='birth-date' placeholder='MM/DD/YYYY'>birth date</InputData>
-                    <InputData type='text' placeholder='Your Country'>Country</InputData>
-                    <InputData type='text' placeholder='Your City'>City</InputData>
-                    <InputData type='email' placeholder='A valid e-mail here'>e-mail</InputData>
-                    <InputData type='password' placeholder='Your password'>password</InputData>
-                    <InputData type='password' placeholder='Comfirm your password'>password</InputData>
+                    <InputData type='text' placeholder='Your first name' />
+                    <InputData type='text' placeholder='Your last name' />
+                    <InputData type='birth-date' placeholder='MM/DD/YYYY' onChange={birthDateHandler} />
+                    <InputData type='text' placeholder='Your Country' />
+                    <InputData type='text' placeholder='Your City' />
+                    <InputData type='email' placeholder='A valid e-mail here' />
+                    <InputData type='password' placeholder='Your password' />
+                    <InputData type='password' placeholder='Comfirm your password' />
 
                     <AccountButton type='submit'>Register Now</AccountButton>
                 </Form>
