@@ -23,6 +23,7 @@ export const FormWrapper = styled.div`
 `;
 
 export const ImageForm = styled.figure`
+    padding: 4em;
     width: 50%;
     height: 100%;
     background: url(${FormImage}) no-repeat;

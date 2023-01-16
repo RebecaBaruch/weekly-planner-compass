@@ -2,6 +2,8 @@ import React from 'react';
 import { FormWrapper, Form, MiddleWrapper, ImageForm } from '../../global/globalStyles';
 import InputData from '../../components/InputData';
 import HeaderTitle from '../../components/HeaderTitle';
+import AccountButton from '../../components/AccountButton';
+import CompassLogo from '../../assets/logo.svg';
 
 function Register() {
     return(
@@ -19,10 +21,14 @@ function Register() {
                     <InputData type='email' placeholder='A valid e-mail here'>e-mail</InputData>
                     <InputData type='password' placeholder='Your password'>password</InputData>
                     <InputData type='password' placeholder='Comfirm your password'>password</InputData>
+
+                    <AccountButton type='submit'>Register Now</AccountButton>
                 </Form>
             </MiddleWrapper>
 
-            <ImageForm />
+            <ImageForm>
+                <img src={CompassLogo} alt='Compass logo' />
+            </ImageForm>
         </FormWrapper>
     );
 }
