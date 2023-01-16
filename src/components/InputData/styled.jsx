@@ -8,16 +8,29 @@ export const InputContainer = styled.div`
     align-items: center;
 `;
 
-export const TxtLabel = styled.h2`
+export const TxtLabel = styled.label`
     font-weight: 400;
     font-size: 1rem;
     color: #E0E0E0;
+
+    ${({ children }) => !children ? 
+        `& {
+            display: none;
+        }
+        
+        & ~ input{
+            width: 100%;
+        }` :
+        `& ~ input{
+            width: 280px;    
+        }` 
+    }
 `;
 
 export const Input = styled.input`
     padding: 0.8rem;
-    width: 280px;
-    background: #26292C;
+    color: #E0E0E0;
+        background: #26292C;
     border: 1px solid #FFFFFF;
     border-radius: 50px;
     -webkit-appearance: none;

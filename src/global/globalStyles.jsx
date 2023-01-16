@@ -39,3 +39,5 @@ export const MiddleWrapper = styled.div`
     height: 100%;
     background: linear-gradient(180deg, #33383D 0%, #1C1D20 100%);
 `;
+
+export const SubTitle =  

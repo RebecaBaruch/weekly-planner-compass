@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FormWrapper, Form, MiddleWrapper, ImageForm } from '../../global/globalStyles';
 import InputData from '../../components/InputData';
 import HeaderTitle from '../../components/HeaderTitle';
@@ -6,16 +7,23 @@ import AccountButton from '../../components/AccountButton';
 import CompassLogo from '../../assets/logo.svg';
 
 function Register() {
+    const navigate = useNavigate();
+
+    const handlerSubmit = (e) => {
+        e.preventDefault();
+        navigate('/login');
+    }
+
     return(
         <FormWrapper>
             <MiddleWrapper>
 
-                <Form action="">
-                    <HeaderTitle title='Welcome,' >Please, register to continue</HeaderTitle>
+                <HeaderTitle title='Welcome,' >Please, register to continue</HeaderTitle>
 
+                <Form action="" onSubmit={handlerSubmit}>
                     <InputData type='text' placeholder='Your first name'>first name</InputData>
                     <InputData type='text' placeholder='Your last name'>last name</InputData>
-                    <InputData type='text' placeholder='MM/DD/YYYY'>birth date</InputData>
+                    <InputData type='birth-date' placeholder='MM/DD/YYYY'>birth date</InputData>
                     <InputData type='text' placeholder='Your Country'>Country</InputData>
                     <InputData type='text' placeholder='Your City'>City</InputData>
                     <InputData type='email' placeholder='A valid e-mail here'>e-mail</InputData>
