@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { FormWrapper, Form, MiddleWrapper, ImageForm, ErrorMessage } from '../../global/globalStyles';
 import { RegisterContext } from '../../context/register-hook';
-import Errors from '../../helpers/inputs-validation';
 import Label from '../../components/Label';
 import InputData from '../../components/InputData';
 import HeaderTitle from '../../components/HeaderTitle';
@@ -13,6 +12,7 @@ import CompassLogo from '../../assets/logo.svg';
 
 function Register() {
     const navigate = useNavigate();
+
     const {userData, setUserData} = useContext(RegisterContext);
     const [isSubmit, setIsSubmit] = useState(false);
     const [errorExists, setErrorExists] = useState(false);
@@ -65,26 +65,21 @@ function Register() {
         e.preventDefault();
 
         const firstName = userData.firstName === '' || userData.firstName == null;
-        const  lastName = userData.lastName === '' || userData.lastName == null;
+        const lastName = userData.lastName === '' || userData.lastName == null;
         const birthDate = userData.birthDate === '' || userData.birthDate == null;
         const country = userData.country === '' || userData.country == null;
         const city = userData.city === '' || userData.city == null;
         const email = userData.email === '' || userData.email == null;
         const password = userData.password === '' || userData.password == null;
-        const confirmPassword = (userData.confirmPassword === '' || userData.confirmPassword == null) || confirmPassword !== userData.password;
+        const confirmPassword = (userData.confirmPassword === '' || userData.confirmPassword == null) || userData.confirmPassword !== userData.password;
 
-        const errors = [firstName, lastName, birthDate, country, city, email, password, confirmPassword];
+        // const errors = [firstName, lastName, birthDate, country, city, email, password, confirmPassword];
 
-        for(const errorType in errors) {
-            if(errorType){
-                setErrorExists(true); 
-            }
-        }
-
+        setErrorExists(true); 
         const errorStyle = (ref) => {
             ref.current.style.border = "1px solid red"
         }
-
+    
         if(firstName) errorStyle(firstNameRef);
         if(lastName) errorStyle(lastNameRef);
         if(birthDate) errorStyle(birthDateRef);
@@ -93,9 +88,13 @@ function Register() {
         if(email) errorStyle(emailRef);
         if(password) errorStyle(passwordRef);
         if(confirmPassword) errorStyle(confirmPasswordRef);
+
+        if(!firstName && !lastName && !birthDate && !country && !city && !email && !password && !confirmPassword) {
+            navigate('/login');
+            localStorage.setItem("userData", JSON.stringify(userData));
+        }
+
     }
-
-
 
     const birthDateHandler = (e) => {
         let v = e.target.value.replace(/\D/g, "");
