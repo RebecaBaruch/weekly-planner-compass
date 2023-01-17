@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { FormWrapper, Form, MiddleWrapper, ImageForm, SubTitle, ErrorMessage } from '../../global/globalStyles';
+import { RegisterContext } from '../../context/register-hook';
 
 import InputData from '../../components/InputData';
 import HeaderTitle from '../../components/HeaderTitle';
@@ -11,6 +12,7 @@ import { IconInputBox, Icon } from './styled';
 
 function Login() {
     const navigate = useNavigate();
+    const {logged, setLogged} = useContext(RegisterContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -34,12 +36,19 @@ function Login() {
         if(emailError || passwordError) {
             if(emailError) errorStyle(emailRef);
             if(passwordError) errorStyle(passwordRef);
-            setErrorExists(true); 
+            setErrorExists(false)
+            console.log(logged);
         } else {
+            setLogged(true);
             navigate('/dashboard');
         }
-
     }
+
+    useEffect(() => {
+        localStorage.setItem('Logged', logged);
+        console.log(logged);
+    }, [logged]);
+
     return(
         <FormWrapper>
             <MiddleWrapper>

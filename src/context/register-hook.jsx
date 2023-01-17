@@ -14,8 +14,10 @@ export const RegisterProvider = ({ children }) => {
         confirmPassword: ''
     });
 
+    const [logged, setLogged] = useState(false);
+
     return(
-        <RegisterContext.Provider value={{userData, setUserData}}>
+        <RegisterContext.Provider value={{userData, setUserData, logged, setLogged}}>
             { children }
         </RegisterContext.Provider>
     );

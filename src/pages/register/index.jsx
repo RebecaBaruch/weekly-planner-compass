@@ -38,8 +38,8 @@ function Register() {
         const confirmPasswordVerify = input.name === 'confirmPassword' && input.value !== userData.password;
 
         if(nameVerify || emailVerify || passwordVerify || confirmPasswordVerify || localVerify) {
-            input.style.outline = "1px solid red";
-            input.style.border = "1px solid red";
+            input.style.outline = "1px solid #E9B425";
+            input.style.border = "1px solid #E9B425";
         } else {
             setData(input);
             input.style.outline = "1px solid white";
@@ -70,7 +70,7 @@ function Register() {
 
         setErrorExists(true); 
         const errorStyle = (ref) => {
-            ref.current.style.border = "1px solid red"
+            ref.current.style.border = "1px solid #E9B425"
         }
     
         if(firstName) errorStyle(firstNameRef);
