@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import useInput from "../../helpers/user-input";
 
-import { FormWrapper, Form, MiddleWrapper, ImageForm } from '../../global/globalStyles';
+import { FormWrapper, Form, MiddleWrapper, ImageForm, ErrorMessage } from '../../global/globalStyles';
 import { RegisterContext } from '../../context/register-hook';
 import Errors from '../../helpers/inputs-validation';
 import Label from '../../components/Label';
@@ -196,9 +196,9 @@ function Register() {
                         />
                     </Label>
 
-                    {errorExists && <p>Enter with correct data</p>}
+                    {errorExists && <ErrorMessage>! Please, enter with correct data</ErrorMessage>}
 
-                    <AccountButton type='submit'>Register Now</AccountButton>
+                    <AccountButton type='submit' disabled={errorExists}>Register Now</AccountButton>
                 </Form>
             </MiddleWrapper>
 
