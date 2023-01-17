@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FormWrapper, Form, MiddleWrapper, ImageForm, SubTitle } from '../../global/globalStyles';
+
+import { FormWrapper, Form, MiddleWrapper, ImageForm, SubTitle, ErrorMessage } from '../../global/globalStyles';
+import { RegisterContext } from '../../context/register-hook';
+
 import InputData from '../../components/InputData';
 import HeaderTitle from '../../components/HeaderTitle';
 import AccountButton from '../../components/AccountButton';
@@ -8,14 +11,33 @@ import CompassLogo from '../../assets/logo.svg';
 import { IconInputBox, Icon } from './styled';
 
 function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
-    let navigate = useNavigate();
+    const {userData, setUserData} = useContext(RegisterContext);
+    const [errorExists, setErrorExists] = useState(false);
+
+    let emailRef = useRef();
+    let passwordRef = useRef();
 
     const submitHandler = (e) => {
         e.preventDefault();
-        navigate('/dashboard');
+        
+        let emailError = emailRef.current.value === '' || emailRef.current.value !== userData.email;
+        let passwordError = passwordRef.current.value === '' || passwordRef.current.value !== userData.password;
+
+        const errorStyle = (ref) => {
+            ref.current.style.border = "1px solid #E9B425";
+        }
+
+        if(emailError || passwordError) {
+            if(emailError) errorStyle(emailRef);
+            if(passwordError) errorStyle(passwordRef);
+            console.log(emailError, passwordError);
+        } else {
+            setErrorExists(true); 
+            navigate('/dashboard');
+        }
+
     }
     return(
         <FormWrapper>
@@ -25,15 +47,28 @@ function Login() {
                     <SubTitle>Login</SubTitle>
 
                     <IconInputBox>
-                        <InputData type='text' placeholder='user name' onChange={({ target }) => setEmail(target.value)} />
+                        <InputData 
+                            type='text' 
+                            placeholder='user name' 
+                            onChange={({ target }) => setEmail(target.value)} 
+                            ref={emailRef}
+                        />
                         <Icon iconType position={email} />
                     </IconInputBox>
 
                     <IconInputBox>
-                        <InputData type='password' placeholder='password' onChange={({ target }) => setPassword(target.value)}/>
+                        <InputData 
+                            type='password' 
+                            placeholder='password' 
+                            onChange={({ target }) => setPassword(target.value)}
+                            ref={passwordRef}
+                        />
                         <Icon position={password} />
                     </IconInputBox>
-                    <AccountButton type='submit' onClick={submitHandler}>Login</AccountButton>
+
+                    {errorExists && <ErrorMessage>! Please, enter with correct data</ErrorMessage>}
+                    
+                    <AccountButton type='submit' onClick={submitHandler} disabled={setErrorExists}>Login</AccountButton>
                 </Form>
             </MiddleWrapper>
 

@@ -14,12 +14,7 @@ function Register() {
     const navigate = useNavigate();
 
     const {userData, setUserData} = useContext(RegisterContext);
-    const [isSubmit, setIsSubmit] = useState(false);
     const [errorExists, setErrorExists] = useState(false);
-
-    useEffect(() => {
-        console.log(userData);
-    }, [userData]);
 
     const setData = (input) => {
         setUserData((prevState) => {
@@ -72,8 +67,6 @@ function Register() {
         const email = userData.email === '' || userData.email == null;
         const password = userData.password === '' || userData.password == null;
         const confirmPassword = (userData.confirmPassword === '' || userData.confirmPassword == null) || userData.confirmPassword !== userData.password;
-
-        // const errors = [firstName, lastName, birthDate, country, city, email, password, confirmPassword];
 
         setErrorExists(true); 
         const errorStyle = (ref) => {
