@@ -36,18 +36,18 @@ function Login() {
         if(emailError || passwordError) {
             if(emailError) errorStyle(emailRef);
             if(passwordError) errorStyle(passwordRef);
-            setErrorExists(false)
-            console.log(logged);
         } else {
             setLogged(true);
+            console.log(logged);
             navigate('/dashboard');
         }
+        
+        useEffect(() => {
+            localStorage.setItem('Logged', logged);
+            console.log(logged);
+        }, [logged]);
     }
 
-    useEffect(() => {
-        localStorage.setItem('Logged', logged);
-        console.log(logged);
-    }, [logged]);
 
     return(
         <FormWrapper>
