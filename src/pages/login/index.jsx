@@ -1,8 +1,7 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { FormWrapper, Form, MiddleWrapper, ImageForm, SubTitle, ErrorMessage } from '../../global/globalStyles';
-import { RegisterContext } from '../../context/register-hook';
 
 import InputData from '../../components/InputData';
 import HeaderTitle from '../../components/HeaderTitle';
@@ -13,7 +12,10 @@ import { IconInputBox, Icon } from './styled';
 function Login() {
     const navigate = useNavigate();
 
-    const {userData, setUserData} = useContext(RegisterContext);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const userData = JSON.parse(localStorage.getItem('userData'));
     const [errorExists, setErrorExists] = useState(false);
 
     let emailRef = useRef();
@@ -32,9 +34,8 @@ function Login() {
         if(emailError || passwordError) {
             if(emailError) errorStyle(emailRef);
             if(passwordError) errorStyle(passwordRef);
-            console.log(emailError, passwordError);
-        } else {
             setErrorExists(true); 
+        } else {
             navigate('/dashboard');
         }
 
@@ -42,7 +43,7 @@ function Login() {
     return(
         <FormWrapper>
             <MiddleWrapper>
-                <Form action="">
+                <Form onSubmit={submitHandler}>
                     <HeaderTitle title='Welcome,' >To continue browsing safely, log in to the <br></br>network.</HeaderTitle>
                     <SubTitle>Login</SubTitle>
 
@@ -66,9 +67,9 @@ function Login() {
                         <Icon position={password} />
                     </IconInputBox>
 
-                    {errorExists && <ErrorMessage>! Please, enter with correct data</ErrorMessage>}
+                    {errorExists && <ErrorMessage>! Email or password incorrect</ErrorMessage>}
                     
-                    <AccountButton type='submit' onClick={submitHandler} disabled={setErrorExists}>Login</AccountButton>
+                    <AccountButton type='submit' disabled={errorExists}>Login</AccountButton>
                 </Form>
             </MiddleWrapper>
 
