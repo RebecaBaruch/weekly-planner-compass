@@ -14,6 +14,11 @@ const InputData = styled.input`
         color: #E0E0E0;
         font-size: 0.7rem
     }
+
+    &.invalid, &:focus.invalid {
+        outline-color: red;
+        border-color: red;
+    }
 `;
 
 export default InputData;

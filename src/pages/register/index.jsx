@@ -1,5 +1,7 @@
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+// import useInput from "../../helpers/user-input";
+
 import { FormWrapper, Form, MiddleWrapper, ImageForm } from '../../global/globalStyles';
 import { RegisterContext } from '../../context/register-hook';
 import Errors from '../../helpers/inputs-validation';
@@ -13,28 +15,87 @@ function Register() {
     const navigate = useNavigate();
     const {userData, setUserData} = useContext(RegisterContext);
     const [isSubmit, setIsSubmit] = useState(false);
-    const error = Errors(userData);
+    const [errorExists, setErrorExists] = useState(false);
 
     useEffect(() => {
         console.log(userData);
     }, [userData]);
-    
-    const setDataHandler = (e) => {
+
+    const setData = (input) => {
         setUserData((prevState) => {
-            return  {...prevState, [e.target.name]: e.target.value}
-        });
-        
-        if(userData!=null) {
-            error();
+            return  {...prevState, [input.name]: input.value}
+        })
+    } 
+    
+    const verifyDataHandler = (e) => {
+        let input = e.target;
+
+        let nameRegex = /([A-Z][a-z]*)([\\s\\\'-][A-Z][a-z]*)*?$/; 
+        let nameResult = nameRegex.test(input.value);
+
+        let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        let emailResult = emailRegex.test(input.value);
+
+        const nameVerify = (input.name === 'firstName' || input.name === 'lastName') && !nameResult;
+        const localVerify = (input.name === 'country' || input.name === 'city') && !nameResult;
+        const emailVerify = input.name === 'email' && !emailResult;
+        const passwordVerify = input.name === 'password' && input.value.length < 7;
+        const confirmPasswordVerify = input.name === 'confirmPassword' && input.value !== userData.password;
+
+        if(nameVerify || emailVerify || passwordVerify || confirmPasswordVerify || localVerify) {
+            input.style.outline = "1px solid red";
+            input.style.border = "1px solid red";
+        } else {
+            setData(input);
+            input.style.outline = "1px solid white";
+            input.style.border = "1px solid white";
+        }
+    }
+
+    let firstNameRef = useRef();
+    let lastNameRef = useRef();
+    let birthDateRef = useRef();
+    let countryRef = useRef();
+    let cityRef = useRef();
+    let emailRef = useRef();
+    let passwordRef = useRef(); 
+    let confirmPasswordRef = useRef(); 
+
+    const formSubmissionHandler = (e) => {
+        e.preventDefault();
+
+        const firstName = userData.firstName === '' || userData.firstName == null;
+        const  lastName = userData.lastName === '' || userData.lastName == null;
+        const birthDate = userData.birthDate === '' || userData.birthDate == null;
+        const country = userData.country === '' || userData.country == null;
+        const city = userData.city === '' || userData.city == null;
+        const email = userData.email === '' || userData.email == null;
+        const password = userData.password === '' || userData.password == null;
+        const confirmPassword = (userData.confirmPassword === '' || userData.confirmPassword == null) || confirmPassword !== userData.password;
+
+        const errors = [firstName, lastName, birthDate, country, city, email, password, confirmPassword];
+
+        for(const errorType in errors) {
+            if(errorType){
+                setErrorExists(true); 
+            }
         }
 
-        // console.log([e.target.name].value);
-        // console.log(userData);
+        const errorStyle = (ref) => {
+            ref.current.style.border = "1px solid red"
+        }
+
+        if(firstName) errorStyle(firstNameRef);
+        if(lastName) errorStyle(lastNameRef);
+        if(birthDate) errorStyle(birthDateRef);
+        if(country) errorStyle(countryRef);
+        if(city) errorStyle(cityRef);
+        if(email) errorStyle(emailRef);
+        if(password) errorStyle(passwordRef);
+        if(confirmPassword) errorStyle(confirmPasswordRef);
     }
 
-    const submitHandler= (e) => {
-        e.preventDefault();
-    }
+
 
     const birthDateHandler = (e) => {
         let v = e.target.value.replace(/\D/g, "");
@@ -48,54 +109,96 @@ function Register() {
     return(
         <FormWrapper>
             <MiddleWrapper>
-                <Form>
+                <Form onSubmit={formSubmissionHandler}>
                     <HeaderTitle title='Welcome,' >Please, register to continue</HeaderTitle>
                     <Label>
                         first name
                         <InputData 
                             type='text' 
                             placeholder='Your first name' 
-                            name='firstName' 
-                            onInput={setDataHandler} />
+                            name='firstName'
+                            onChange={verifyDataHandler} 
+                            ref={firstNameRef}
+                        />
                     </Label>
+
                     <Label>
                         last name
                         <InputData 
                             type='text' 
-                            name='lastName'
                             placeholder='Your last name' 
-                            onInput={setDataHandler} />
+                            name='lastName'
+                            onChange={verifyDataHandler} 
+                            ref={lastNameRef}
+                        />
                     </Label>
+
                     <Label>
                         birth date
-                        <InputData type='text' placeholder='Your last name' />
+                        <InputData 
+                            type='birth-date' 
+                            placeholder='MM/DD/YYYY' 
+                            name='birthDate'
+                            onChange={verifyDataHandler}
+                            onInput={birthDateHandler} 
+                            ref={birthDateRef}
+                        />
                     </Label>
-                    <Label>
-                        birth date
-                        <InputData type='birth-date' placeholder='MM/DD/YYYY' onChange={birthDateHandler} />
-                    </Label>
+
                     <Label>
                         Country
-                        <InputData type='text' placeholder='Your Country' />
+                        <InputData 
+                            type='text' 
+                            placeholder='Your Country' 
+                            name='country'
+                            onChange={verifyDataHandler}
+                            ref={countryRef}
+                        />
                     </Label>
                     <Label>
                         City
-                        <InputData type='text' placeholder='Your City' />
+                        <InputData 
+                            type='text' 
+                            placeholder='Your City'
+                            name='city'
+                            onChange={verifyDataHandler}
+                            ref={cityRef}
+                        />
                     </Label>
                     <Label>
                         e-mail
-                        <InputData type='email' placeholder='A valid e-mail here' />
+                        <InputData 
+                            type='email' 
+                            placeholder='A valid e-mail here' 
+                            name='email'
+                            onChange={verifyDataHandler}
+                            ref={emailRef}
+                        />
                     </Label>
                     <Label>
                         password
-                        <InputData type='password' placeholder='Your password' />
+                        <InputData 
+                            type='password' 
+                            placeholder='Your password'
+                            name='password'
+                            onChange={verifyDataHandler}
+                            ref={passwordRef} 
+                        />
                     </Label>
                     <Label>
                         password
-                        <InputData type='password' placeholder='Comfirm your password' />
+                        <InputData 
+                            type='password' 
+                            placeholder='Comfirm your password'
+                            name='confirmPassword'
+                            onChange={verifyDataHandler}
+                            ref={confirmPasswordRef}
+                        />
                     </Label>
 
-                    <AccountButton type='submit' onClick={submitHandler}>Register Now</AccountButton>
+                    {errorExists && <p>Enter with correct data</p>}
+
+                    <AccountButton type='submit'>Register Now</AccountButton>
                 </Form>
             </MiddleWrapper>
 
