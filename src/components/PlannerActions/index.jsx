@@ -52,17 +52,20 @@ function PlannerAction({ onSaveTaskData, deleteDataHandler }) {
     const submitHandler = (e) => {
         e.preventDefault();
     
-        const taskData = {
-            desc: enteredDesc,
-            day: enteredDay,
-            time: enteredTime
-        };
+        if(enteredDesc !== '' && enteredDay !== '' && enteredTime !== '') {
+            const taskData = {
+                desc: enteredDesc,
+                day: enteredDay,
+                time: enteredTime
+            };
+            
+            onSaveTaskData(taskData);
+            console.log(taskData);
+            setEnteredDesc('');
+            setEnteredDay('');
+            setEnteredTime('');
+        }
 
-        onSaveTaskData(taskData);
-        console.log(taskData);
-        setEnteredDesc('');
-        setEnteredDay('');
-        setEnteredTime('');
     };
 
     return(
@@ -84,11 +87,11 @@ function PlannerAction({ onSaveTaskData, deleteDataHandler }) {
                     <option value='sunday'>Sunday</option>
                 </SelectPlanner>
                 <SelectPlanner value={enteredTime} onChange={timeChangeHandler}>
-                    <option value='01'>01h 32m</option>
-                    <option value='02'>02h 32m</option>
-                    <option value='03'>03h 32m</option>
-                    <option value='04'>04h 32m</option>
-                    <option value='05'>05h 32m</option>
+                    <option value='01h32m'>01h 32m</option>
+                    <option value='02h32m'>02h 32m</option>
+                    <option value='03h32m'>03h 32m</option>
+                    <option value='04h32m'>04h 32m</option>
+                    <option value='05h32m'>05h 32m</option>
                 </SelectPlanner>
 
             </InputsContainer>

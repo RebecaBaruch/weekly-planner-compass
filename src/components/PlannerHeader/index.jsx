@@ -39,14 +39,13 @@ function PlannerHeader() {
         <Header>
             <HeaderTitle />
 
-            <TimeBox />
+            <TimeBox /> 
 
             <WeatherBox />
 
             <ActionContainer>
-                <CompassLink size='2rem' href='/' />
+                <CompassLink size='2rem' href='https://compass.uol/pt/home/?utm_source=google-ads&utm_medium=ppc&utm_campaign=compasso-uol-institucional&utm_term=compasso.uol&gclid=CjwKCAiAzp6eBhByEiwA_gGq5DzQzIjYPI7sgSl0ihpbaAwK9uz7hfU10sTNd-iYAt2X1u1pwyLyfhoC8NIQAvD_BwE' />
                 <LogoutButton onClick={logOut} />
-                {/* onClick={ctxt.onLogout()} */}
             </ActionContainer>
         </Header>
     )
