@@ -6,6 +6,8 @@ export const Wrapper = styled.div`
     justify-content: center;
     flex-direction: column;
     width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);    
 `;
 
 export const Form = styled.form`
