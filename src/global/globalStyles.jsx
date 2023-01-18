@@ -52,11 +52,9 @@ export const SubTitle =  styled.h2`
 `;
 
 export const ErrorMessage = styled.div`
-    padding: 1rem;
-    width: 100%;
+    font-weight: 700;
+    font-size: 1rem;
     text-align: center;
-    font-size: 1.5rem;
-    color: tomato;
-    border-radius: 7px;
-    background-color: #ff634725;
+
+    color: #E9B425;
 `

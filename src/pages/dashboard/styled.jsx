@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import CompassBg from '../../assets/compass-bg.png';
 
-export const MainContainer = styled.div`
+export const MainContainer = styled.main`
     padding: 1rem;
     width: 100%;
     height: 100%;

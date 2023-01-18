@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { FormWrapper, Form, MiddleWrapper, ImageForm, SubTitle, ErrorMessage } from '../../global/globalStyles';
@@ -12,7 +12,7 @@ import { IconInputBox, Icon } from './styled';
 
 function Login() {
     const navigate = useNavigate();
-    const {logged, setLogged} = useContext(RegisterContext);
+    const ctxt = useContext(RegisterContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -26,26 +26,21 @@ function Login() {
     const submitHandler = (e) => {
         e.preventDefault();
         
-        let emailError = emailRef.current.value === '' || emailRef.current.value !== userData.email;
+        let emailError = emailRef.current.value !== '' && (emailRef.current.value === userData.email || (emailRef.current.value === (userData.firstName + ' ' + userData.lastName)));
         let passwordError = passwordRef.current.value === '' || passwordRef.current.value !== userData.password;
 
         const errorStyle = (ref) => {
             ref.current.style.border = "1px solid #E9B425";
         }
 
-        if(emailError || passwordError) {
-            if(emailError) errorStyle(emailRef);
+        if(!emailError || passwordError) {
+            if(!emailError) errorStyle(emailRef);
             if(passwordError) errorStyle(passwordRef);
+            setErrorExists(true);
         } else {
-            setLogged(true);
-            console.log(logged);
+            ctxt.onLogin();
             navigate('/dashboard');
         }
-        
-        useEffect(() => {
-            localStorage.setItem('Logged', logged);
-            console.log(logged);
-        }, [logged]);
     }
 
 
@@ -76,7 +71,10 @@ function Login() {
                         <Icon position={password} />
                     </IconInputBox>
 
-                    {errorExists && <ErrorMessage>! Email or password incorrect</ErrorMessage>}
+                    {errorExists && <ErrorMessage>
+                                        Wow, invalid username or password. <br></br>
+                                        Please, try again!
+                                    </ErrorMessage>}
                     
                     <AccountButton type='submit' disabled={errorExists}>Login</AccountButton>
                 </Form>

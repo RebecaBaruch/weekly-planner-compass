@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { RegisterContext } from '../../context/register-hook';
 
 import styled from 'styled-components';
 import CompassLink from '../CompassLink';
@@ -27,6 +29,12 @@ export const ActionContainer = styled.div`
 `
 
 function PlannerHeader() {
+    const ctxt = useContext(RegisterContext);
+
+    const logOut = () => {
+        ctxt.onLogout()    
+    }
+
     return(
         <Header>
             <HeaderTitle />
@@ -37,7 +45,8 @@ function PlannerHeader() {
 
             <ActionContainer>
                 <CompassLink size='2rem' href='/' />
-                <LogoutButton />
+                <LogoutButton onClick={logOut} />
+                {/* onClick={ctxt.onLogout()} */}
             </ActionContainer>
         </Header>
     )

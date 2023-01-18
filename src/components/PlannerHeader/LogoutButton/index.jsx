@@ -4,10 +4,10 @@ import { Button } from './styled';
 
 import LogOut from '../../../assets/logout-icon.svg';
 
-function LogoutButton() {
+function LogoutButton({ onClick }) {
 
     return(
-        <Button> 
+        <Button onClick={ onClick }> 
             <img src={LogOut} alt='logout image' />
             Logout
         </Button>

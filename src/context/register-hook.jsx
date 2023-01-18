@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const RegisterContext = createContext({});
 
@@ -14,10 +14,33 @@ export const RegisterProvider = ({ children }) => {
         confirmPassword: ''
     });
 
-    const [logged, setLogged] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn'));
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            setIsLoggedIn(true);
+        }
+    }, []);
+
+    const logoutHandler = () => {
+        localStorage.removeItem("isLoggedIn");
+        setIsLoggedIn(false);
+    };
+
+    const loginHandler = () => {
+        localStorage.setItem("isLoggedIn", true);
+        setIsLoggedIn(true);
+    };
 
     return(
-        <RegisterContext.Provider value={{userData, setUserData, logged, setLogged}}>
+        <RegisterContext.Provider 
+            value={{
+                    userData, 
+                    setUserData, 
+                    isLoggedIn, 
+                    setIsLoggedIn,
+                    onLogout: logoutHandler,
+                    onLogin: loginHandler}}>
             { children }
         </RegisterContext.Provider>
     );
