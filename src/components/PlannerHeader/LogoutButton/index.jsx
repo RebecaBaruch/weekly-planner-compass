@@ -1,16 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-import LogOut from '../../../assets/logout-icon.svg';
 
-export const Button = styled.button`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    width: fit-content;
-    background-color: transparent;
-    outline: none;
-`
+import { Button } from './styled';
+
+import LogOut from '../../../assets/logout-icon.svg';
 
 function LogoutButton() {
 

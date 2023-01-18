@@ -1,78 +1,75 @@
-import React from "react";
-
-import styled from "styled-components";
-
-import CompassBg from '../../assets/compass-bg.png';
+import React, { useState } from "react";
 
 import { Wrapper } from '../../global/globalStyles';
 import PlannerHeader from "../../components/PlannerHeader";
 import PlannerActions from "../../components/PlannerActions";
-import FilterCards from "../../components/FilterCards";
-import TimeBox from "../../components/TimeTask";
-import Task from "../../components/Task";
 
-export const MainContainer = styled.div`
-    padding: 1rem;
-    width: 100%;
-    height: 100%;
-    background: right bottom url(${CompassBg}) no-repeat;
-`;
+import { CardsWrapper, Card, MainContainer, Planner } from './styled';
 
-export const Planner = styled.div`
-    padding: 2rem 1rem 0 0;
-    width: 100%;
-    height: 90%;
-`;
+import AllTasks from "../../components/AllTasks";
+import TimeTask from "../../components/TimeTask";
 
-export const AllTasks = styled.div`
-    display: flex;
-    justify-content: start;
-    flex-direction: column;
-    gap: 1rem;
-    overflow: scroll;
-    width: 100%;
-    height: 80%;
-
-    &::-webkit-scrollbar {
-        padding: 4px;
-
-        background: #FFFFFF;
-
-        box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
-        border-radius: 22px;
+const all_tasks = [
+    {
+      id: 1,
+      desc: 'Teste',
+      day: '11/08/2003',
+      time: '11h24'
     }
-
-    /* Track */
-    &::-webkit-scrollbar-track {
-        border-radius: 10px;
-        background: #FFFFFF;
-
-        box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
-        border-radius: 22px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: #636363;        
-        border-radius: 8px;
-    }
-
-`;
+  ];
 
 function Dashboard() {
+    const [tasks, setTasks] = useState(all_tasks);
+
+    const addTaskHandler = (task) => {
+        setTasks(prevTasks => {
+            task = {
+                id: prevTasks.length + 1,
+                ...task
+            }
+            return [task, ...prevTasks]
+        });
+    }
+
+    const deleteAllHandler = () => {
+        setTasks('');
+    }
+
+    // const [filteredYear, setFilteredYear] = useState('2020');
+
+    // const filterChangeHandler = (selectedYear) => {
+    //     setFilteredYear(selectedYear);
+    //     console.log(selectedYear);
+    // }
+
+    // const filteredExpenses = props.items.filter(expense => {
+    //     return expense.date.getFullYear().toString() === filteredYear;
+    // }); 
+
+    const showMondayHandler = (e) => {
+        console.log(e.target.classList);
+    };
+
+
     return(
         <Wrapper>
            <PlannerHeader />
 
             <MainContainer>
-                <PlannerActions />
+                <PlannerActions onSaveTaskData={addTaskHandler} deleteDataHandler={deleteAllHandler} />
                 <Planner>
-                    <FilterCards />
+                    <CardsWrapper>
+                        <Card className='monday' onChange={showMondayHandler}>Monday</Card>
+                        <Card className='tuesday'>Tuesday</Card>
+                        <Card className='wednesday'>Wednesday</Card>
+                        <Card className='thursday'>Thursday</Card>
+                        <Card className='friday'>Friday</Card>
+                        <Card className='saturday'>Saturday</Card>
+                        <Card className='sunday'>Sunday</Card>
+                    </CardsWrapper>
+                    <TimeTask taskTime='Time' color='white' />
 
-                    <TimeBox />
-
-                    <AllTasks>
-                        <Task />
-                    </AllTasks>
+                    <AllTasks tasks={ tasks } />
                 </Planner>
             </MainContainer>
         </Wrapper>

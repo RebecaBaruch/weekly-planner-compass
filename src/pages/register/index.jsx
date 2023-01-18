@@ -86,7 +86,6 @@ function Register() {
             navigate('/login');
             localStorage.setItem("userData", JSON.stringify(userData));
         }
-
     }
 
     const birthDateHandler = (e) => {

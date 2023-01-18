@@ -1,23 +1,11 @@
 import React from "react";
 
-import styled from "styled-components";
+import { Button } from './styled';
 
-function ActionButton({ type, color, children }) {
-    const Button = styled.button`
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 10px 12px;
-        gap: 4px;
-    
-        font-weight: 700;
-        color: #FFFFFF;
-        background: ${ color };
-        border-radius: 10px;
-    `;
+function ActionButton({ type, color, onClick, children }) {
 
     return(
-        <Button type={ type } color={ color }>{ children }</Button>
+        <Button type={ type } color={ color } onClick={ onClick }>{ children }</Button>
     );
 }
 

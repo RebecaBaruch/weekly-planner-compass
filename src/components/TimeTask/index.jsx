@@ -1,25 +1,12 @@
-import styled from "styled-components";
+import React from "react";
 
-export const TimeBox = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    width: 85px;
-    height: 85px;
-    font-weight: bold;
+import { TimeBox } from './styled';
 
-    background: #FF0024;
-    border-bottom: 1px solid #DCDFE3;
-    border-radius: 10px;
+function TimeTask( { taskTime, color } ) {
 
-`
-
-function TimeTask() {
-    
     return(
-        <TimeBox>
-            10h30m
+        <TimeBox color={ color }>
+            { taskTime }
         </TimeBox>
     );
 }

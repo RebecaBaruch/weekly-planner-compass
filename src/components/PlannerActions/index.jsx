@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 
 import styled from 'styled-components';
 
@@ -6,7 +6,7 @@ import InputPlanner from'./InputPlanner';
 import SelectPlanner from './SelectPlanner';
 import ActionButton from './ActionButton';
 
-export const ActionsContainer = styled.div`
+export const ActionsForm = styled.form`
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -15,7 +15,7 @@ export const ActionsContainer = styled.div`
     width: 100%;
 `;
 
-export const InputsForm = styled.form`
+export const InputsContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -32,13 +32,50 @@ export const ButtonsContainer = styled.div`
     align-items: center;
 `;
 
-function PlannerAction() {
+function PlannerAction({ onSaveTaskData, deleteDataHandler }) {
+    const  [enteredDesc, setEnteredDesc] = useState('');
+    const  [enteredDay, setEnteredDay] = useState('');
+    const  [enteredTime, setEnteredTime] = useState('');
+
+    const descChangeHandler = (e) => {
+        setEnteredDesc(e.target.value);
+      };
+    
+    const dayChangeHandler = (e) => {
+        setEnteredDay(e.target.value);
+    };
+    
+    const timeChangeHandler = (e) => {
+        setEnteredTime(e.target.value);
+    };
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+    
+        const taskData = {
+            desc: enteredDesc,
+            day: enteredDay,
+            time: enteredTime
+        };
+
+        onSaveTaskData(taskData);
+        console.log(taskData);
+        setEnteredDesc('');
+        setEnteredDay('');
+        setEnteredTime('');
+    };
 
     return(
-        <ActionsContainer>
-            <InputsForm>
-                <InputPlanner width='64%' type='text' placeholder='Task or issue' />
-                <SelectPlanner width='40%'>
+        <ActionsForm onSubmit={submitHandler}>
+            <InputsContainer>
+                <InputPlanner 
+                    width='64%' 
+                    type='text' 
+                    placeholder='Task or issue' 
+                    value={enteredDesc}
+                    onChange={descChangeHandler}
+                />
+                <SelectPlanner width='40%' value={enteredDay} onChange={dayChangeHandler}>
                     <option value='monday'>Monday</option>
                     <option value='tuesday'>Tuesday</option>
                     <option value='thursday'>Thursday</option>
@@ -46,20 +83,21 @@ function PlannerAction() {
                     <option value='saturday'>Saturday</option>
                     <option value='sunday'>Sunday</option>
                 </SelectPlanner>
-                <SelectPlanner>
-                    <option value='01h32m'>01h 32m</option>
-                    <option value='02h32m'>02h 32m</option>
-                    <option value='03h32m'>03h 32m</option>
-                    <option value='04h32m'>04h 32m</option>
-                    <option value='05h32m'>05h 32m</option>
+                <SelectPlanner value={enteredTime} onChange={timeChangeHandler}>
+                    <option value='01'>01h 32m</option>
+                    <option value='02'>02h 32m</option>
+                    <option value='03'>03h 32m</option>
+                    <option value='04'>04h 32m</option>
+                    <option value='05'>05h 32m</option>
                 </SelectPlanner>
-            </InputsForm>
 
+            </InputsContainer>
             <ButtonsContainer>
-                <ActionButton color='#00BA88'>+ Add to calendar</ActionButton>
-                <ActionButton  color='#FF3D1F'>- Delete All</ActionButton>
+                <ActionButton type='submit' color='#00BA88'>+ Add to calendar</ActionButton>
+                <ActionButton type='button' color='#FF3D1F' onClick={deleteDataHandler}>- Delete All</ActionButton>
             </ButtonsContainer>
-        </ActionsContainer>
+
+        </ActionsForm>
     );
 }
 
