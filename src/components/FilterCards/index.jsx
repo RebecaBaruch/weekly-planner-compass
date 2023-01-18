@@ -7,7 +7,7 @@ export const CardsWrapper = styled.div`
     justify-content: center;
     flex-direction: row;
     gap: 5px;
-    padding-left: 10%;
+    padding-left: 105px;
     width: 100%;
 
 `;

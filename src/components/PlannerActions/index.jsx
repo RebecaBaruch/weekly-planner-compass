@@ -11,11 +11,11 @@ export const ActionsContainer = styled.div`
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-    padding: 2rem 2rem;
+    padding: 1rem 1rem;
     width: 100%;
 `;
 
-export const InputsContainer = styled.div`
+export const InputsForm = styled.form`
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -36,7 +36,7 @@ function PlannerAction() {
 
     return(
         <ActionsContainer>
-            <InputsContainer>
+            <InputsForm>
                 <InputPlanner width='64%' type='text' placeholder='Task or issue' />
                 <SelectPlanner width='40%'>
                     <option value='monday'>Monday</option>
@@ -53,7 +53,7 @@ function PlannerAction() {
                     <option value='04h32m'>04h 32m</option>
                     <option value='05h32m'>05h 32m</option>
                 </SelectPlanner>
-            </InputsContainer>
+            </InputsForm>
 
             <ButtonsContainer>
                 <ActionButton color='#00BA88'>+ Add to calendar</ActionButton>
