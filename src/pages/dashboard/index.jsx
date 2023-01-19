@@ -27,6 +27,7 @@ function Dashboard() {
                 id: prevTasks.length + 1,
                 ...task
             }
+            console.log(task);
             return [task, ...prevTasks]
         });
     }
