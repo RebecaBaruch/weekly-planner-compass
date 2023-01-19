@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Button = styled.button`
-    margin-top: 20px;
-    font-size: 1.5rem;
+    margin-top: 10px;
+    font-size: 1.2rem;
     font-weight: 700;
     color: white;
     background: linear-gradient(90deg, #FF2D04 0%, #C13216 100%);

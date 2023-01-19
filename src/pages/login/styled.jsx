@@ -6,14 +6,14 @@ export const IconInputBox = styled.div`
     position: relative;
     
     input:focus ~ i{
-        margin-left: -60px;
+        margin-left: -50px;
     }
 `;
 
 export const Icon = styled.i`
     position: absolute; 
-    margin-left: ${({ position }) => position ? `-60px` : '0'};
-    top: ${({ iconType }) => iconType ? `8px` : `10px`}; 
+    margin-left: ${({ position }) => position ? `-50px` : '0'};
+    top: ${({ iconType }) => iconType ? `5px` : `4.5px`}; 
     left: 105%;
     width: 20px;
     height: 25px;

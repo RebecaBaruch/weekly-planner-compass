@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext, useRef } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 // import useInput from "../../helpers/user-input";
 
-import { FormWrapper, Form, MiddleWrapper, ImageForm, ErrorMessage } from '../../global/globalStyles';
+import { FormWrapper, Form, MiddleWrapper, ImageForm, ErrorMessage, AccountLink } from '../../global/globalStyles';
 import { RegisterContext } from '../../context/register-hook';
 import Label from '../../components/Label';
 import InputData from '../../components/InputData';
@@ -191,10 +191,18 @@ function Register() {
 
                     <AccountButton type='submit' disabled={errorExists}>Register Now</AccountButton>
                 </Form>
+
+                <AccountLink>
+                    <Link to='/login'>
+                        Have an account yet? Create one
+                    </Link>
+                </AccountLink>
             </MiddleWrapper>
 
             <ImageForm>
-                <img src={CompassLogo} alt='Compass logo' />
+                <a href='https://compass.uol/en/home/'>
+                    <img src={CompassLogo} alt='Compass logo' width='45%' />
+                </a>
             </ImageForm>
         </FormWrapper>
     );

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
-import { FormWrapper, Form, MiddleWrapper, ImageForm, SubTitle, ErrorMessage } from '../../global/globalStyles';
+import { FormWrapper, Form, MiddleWrapper, ImageForm, SubTitle, ErrorMessage, AccountLink } from '../../global/globalStyles';
 import { RegisterContext } from '../../context/register-hook';
 
 import InputData from '../../components/InputData';
@@ -78,10 +78,17 @@ function Login() {
                     
                     <AccountButton type='submit' disabled={errorExists}>Login</AccountButton>
                 </Form>
+
+                <AccountLink>
+                    <Link to='/'>
+                        Don't have an account yet? <br></br>
+                        Create one
+                    </Link>
+                </AccountLink>
             </MiddleWrapper>
 
             <ImageForm>
-                <img src={CompassLogo} alt='Compass logo' />
+                <img src={CompassLogo} alt='Compass logo' width='45%'/>
             </ImageForm>
         </FormWrapper>
     );

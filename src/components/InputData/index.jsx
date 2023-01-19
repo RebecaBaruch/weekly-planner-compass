@@ -1,8 +1,8 @@
 import styled from  'styled-components';
 
 const InputData = styled.input`
-    padding: 0.8rem;
-    width: 379px;
+    padding: 0.5rem;
+    width: 279px;
     color: #E0E0E0;
     background: #26292C;
     border: 1px solid #FFFFFF;

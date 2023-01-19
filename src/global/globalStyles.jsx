@@ -26,7 +26,7 @@ export const FormWrapper = styled.div`
 `;
 
 export const ImageForm = styled.figure`
-    padding: 4em;
+    padding: 2em;
     width: 50%;
     height: 100%;
     background: url(${FormImage}) no-repeat;
@@ -46,7 +46,7 @@ export const MiddleWrapper = styled.div`
 
 export const SubTitle =  styled.h2`
     font-weight: 400;
-    font-size: 2rem;
+    font-size: 1.5rem;
 
     color: #E0E0E0;
 `;
@@ -57,4 +57,12 @@ export const ErrorMessage = styled.div`
     text-align: center;
 
     color: #E9B425;
+`
+
+export const AccountLink = styled.span`
+    margin-top: 15px;
+    font-size: 0.8;
+    font-weight: 300;
+    color: white;
+    text-align: center;
 `

@@ -4,9 +4,9 @@ const Label = styled.label`
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    gap: 30px;
+    gap: 20px;
     align-items: center;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 400;
     color: #E0E0E0;
 `
