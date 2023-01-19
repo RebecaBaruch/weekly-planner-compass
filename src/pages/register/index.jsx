@@ -187,7 +187,7 @@ function Register() {
                         />
                     </Label>
 
-                    {errorExists && <ErrorMessage>! Please, enter with correct data</ErrorMessage>}
+                    {errorExists && <ErrorMessage>Please, enter with correct data!</ErrorMessage>}
 
                     <AccountButton type='submit' disabled={errorExists}>Register Now</AccountButton>
                 </Form>
