@@ -13,16 +13,28 @@ function WeatherBox() {
 
     setInterval(updateTime, 1000);
 
-    var data = new Date();
-    var dia = String(data.getDate()).padStart(2, '0');
-    var mes = String(data.getMonth() + 1).padStart(2, '0');
-    var ano = data.getFullYear();
-    let dataAtual = dia + '/' + mes + '/' + ano;
+    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    let date = new Date();
+    let month = months[date.getMonth()];
+    let day = date.getDate();
+    let ordinal = (day % 10);
+    let year = date.getFullYear();
+
+    let ordinalDate = 0;
+    if(ordinal === 1) ordinalDate = day + 'st';
+    if(ordinal === 2) ordinalDate = day + 'nd';
+    if(ordinal === 3) ordinalDate = day + 'rd';
+    if(ordinal > 3 || ordinal === 0) ordinalDate = day + 'th';
+
+    console.log(ordinalDate);
+
+    let currentDate = month + ' ' + ordinalDate + ', ' + year;
 
     return(
         <TimeContainer>
             <TimeTitle>{currentTime}</TimeTitle>
-            <TimeText>{dataAtual}</TimeText>
+            <TimeText>{currentDate}</TimeText>
         </TimeContainer>
     );
 }

@@ -14,7 +14,7 @@ export const TimeTitle = styled.h1`
 `
 
 export const TimeText = styled.h2`
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 400;
     color: #3B3E45;
 `
