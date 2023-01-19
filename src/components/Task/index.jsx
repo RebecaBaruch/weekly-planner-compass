@@ -13,7 +13,7 @@ function Task({ desc, time, dayColor }) {
                 <TimeTask taskTime={ time } color={ dayColor } />
             </TimeList>
             <ListTasks>
-                <TaskItem taskTxt={ desc } />
+                <TaskItem taskTxt={ desc } borderColor={ dayColor }/>
             </ListTasks>
         </TaskContainer>
     );

@@ -13,7 +13,7 @@ const all_tasks = [
     {
       id: 1,
       desc: 'Teste',
-      day: '11/08/2003',
+      day: 'monday',
       time: '11h24'
     }
   ];
@@ -36,21 +36,8 @@ function Dashboard() {
         setTasks('');
     }
 
-    // const [filteredYear, setFilteredYear] = useState('2020');
-
-    // const filterChangeHandler = (selectedYear) => {
-    //     setFilteredYear(selectedYear);
-    //     console.log(selectedYear);
-    // }
-
-    // const filteredExpenses = props.items.filter(expense => {
-    //     return expense.date.getFullYear().toString() === filteredYear;
-    // }); 
-
-    const showMondayHandler = (e) => {
-        console.log(e.target.classList);
-    };
-
+    
+    console.log(all_tasks.find(tasks => tasks.day === 'tuesday'));
 
     return(
         <Wrapper>
@@ -60,7 +47,7 @@ function Dashboard() {
                 <PlannerActions onSaveTaskData={addTaskHandler} deleteDataHandler={deleteAllHandler} />
                 <Planner>
                     <CardsWrapper>
-                        <Card className='monday' onChange={showMondayHandler}>Monday</Card>
+                        <Card className='monday'>Monday</Card>
                         <Card className='tuesday'>Tuesday</Card>
                         <Card className='wednesday'>Wednesday</Card>
                         <Card className='thursday'>Thursday</Card>

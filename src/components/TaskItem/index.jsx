@@ -2,10 +2,10 @@ import React from 'react';
 
 import { TaskBox, TaskText, DeleteButton } from './styled';
 
-function TaskItem({ taskTxt }) {
+function TaskItem({ taskTxt, borderColor }) {
 
     return(
-        <TaskBox>
+        <TaskBox borderColor={ borderColor }>
             <TaskText>
                 { taskTxt }
             </TaskText>

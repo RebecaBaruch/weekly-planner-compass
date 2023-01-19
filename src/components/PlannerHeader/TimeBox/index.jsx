@@ -27,8 +27,6 @@ function WeatherBox() {
     if(ordinal === 3) ordinalDate = day + 'rd';
     if(ordinal > 3 || ordinal === 0) ordinalDate = day + 'th';
 
-    console.log(ordinalDate);
-
     let currentDate = month + ' ' + ordinalDate + ', ' + year;
 
     return(
