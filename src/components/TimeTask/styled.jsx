@@ -5,8 +5,9 @@ display: flex;
 justify-content: center;
 align-items: center;
 box-sizing: border-box;
-width: 85px;
-height: 85px;
+width: 75px;
+height: 75px;
+font-size: 1rem;
 font-weight: bold;
 
 background: ${ ({ color }) => color };

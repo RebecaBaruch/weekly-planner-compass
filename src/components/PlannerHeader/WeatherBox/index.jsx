@@ -31,7 +31,7 @@ function WeatherBox() {
             {
                weatherForecast ?
                 <WeatherTitle>
-                    <img src={weatherForecast.current.condition.icon} alt='weather icon' />
+                    <img src={weatherForecast.current.condition.icon} width='45px' alt='weather icon' />
                     {weatherForecast.current.temp_c}
                 </WeatherTitle> :
                 null

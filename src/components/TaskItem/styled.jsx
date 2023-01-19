@@ -8,7 +8,7 @@ export const TaskBox = styled.div`
     align-item: start;
     padding: 1rem;
     width: 512px;
-    min-height: 85px;
+    height: 75px;
     text-align: left;
 
     border-left: 15px solid ${({ borderColor}) => borderColor};

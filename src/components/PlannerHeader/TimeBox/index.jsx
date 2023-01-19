@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import { TimeContainer, TimeTitle, TimeText } from './styled';
 
 function WeatherBox() {
-    let time = new Date().toLocaleTimeString();
+    let time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     const [currentTime, setCurrentTime] = useState(time);
 
     const updateTime = () => {
-        let time = new Date().toLocaleTimeString();
+        let time = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         setCurrentTime(time);
     }
 

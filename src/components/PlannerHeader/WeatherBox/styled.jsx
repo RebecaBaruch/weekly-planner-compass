@@ -11,7 +11,7 @@ export const WeatherTitle = styled.h1`
     justify-content: space-around;
     flex-direction: row;
     align-items: center;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 700;
     text-align: center;
     color: #222222;

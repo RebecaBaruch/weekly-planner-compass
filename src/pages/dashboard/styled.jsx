@@ -7,12 +7,13 @@ export const MainContainer = styled.main`
     width: 100%;
     height: 100%;
     background: right bottom url(${CompassBg}) no-repeat;
+    background-size: 30%;
 `;
 
 export const Planner = styled.div`
-    padding: 2rem 1rem 0 0;
+    padding: 1rem 1rem 0 0;
     width: 100%;
-    height: 90%;
+    height: 70vh;
 `;
 
 export const CardsWrapper = styled.div`
@@ -26,9 +27,9 @@ export const CardsWrapper = styled.div`
 `;
 
 export const Card = styled.div`
-    padding: 0.3rem;
+    padding: 0.1rem 0.4rem;
     width: 100%;
-    font-size: 1.3rem;
+    font-size: 1rem;
     text-align: left;
     box-shadow: 0px 4px 24px rgba(168, 168, 168, 0.25);
     border-radius: 9px 9px 0px 0px;

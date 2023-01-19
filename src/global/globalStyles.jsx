@@ -3,10 +3,10 @@ import FormImage from '../assets/compass-forms-image.png';
 
 export const Wrapper = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: start;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background: rgba(255, 255, 255, 0.95);    
 `;
 
