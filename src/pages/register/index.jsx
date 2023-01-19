@@ -194,7 +194,7 @@ function Register() {
 
                 <AccountLink>
                     <Link to='/login'>
-                        Have an account yet? Create one
+                        Have an account yet? Login
                     </Link>
                 </AccountLink>
             </MiddleWrapper>

@@ -82,7 +82,7 @@ function Login() {
                 <AccountLink>
                     <Link to='/'>
                         Don't have an account yet? <br></br>
-                        Create one
+                       Sing up
                     </Link>
                 </AccountLink>
             </MiddleWrapper>
