@@ -13,9 +13,6 @@ function WeatherBox() {
 
     setInterval(updateTime, 1000);
 
-    let date = new Date().toLocaleDateString();
-    const [currentDate, setCurrentDate] = useState(date);
-
     var data = new Date();
     var dia = String(data.getDate()).padStart(2, '0');
     var mes = String(data.getMonth() + 1).padStart(2, '0');
