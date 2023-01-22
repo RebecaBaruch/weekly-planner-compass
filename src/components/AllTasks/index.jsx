@@ -38,7 +38,7 @@ export const TasksList = styled.div`
 
 `;
 
-function AllTasks({ tasks }) {
+function AllTasks({ tasks, delItem }) {
     
     if(tasks.length === 0) {
         return <h2>Found no tasks.</h2>;
@@ -50,11 +50,13 @@ function AllTasks({ tasks }) {
                 tasks.map((task) => ( 
                     
                     <Task 
+                        id={task.id}
                         key={task.id} 
                         desc={task.desc} 
                         time={task.time} 
                         day={task.day} 
                         dayColor={task.day}
+                        delItem={ delItem }
                     />
                 ))
             }

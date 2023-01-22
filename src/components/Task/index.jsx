@@ -5,7 +5,7 @@ import { TaskContainer, TimeList, ListTasks } from './styled';
 import TimeTask from "../TimeTask";
 import TaskItem from "../TaskItem";
 
-function Task({ desc, time, dayColor }) {
+function Task({ desc, time, dayColor, id, delItem }) {
 
     return(
         <TaskContainer>
@@ -13,7 +13,16 @@ function Task({ desc, time, dayColor }) {
                 <TimeTask taskTime={ time } color={ dayColor } />
             </TimeList>
             <ListTasks>
-                <TaskItem taskTxt={ desc } borderColor={ dayColor }/>
+                {console.log(desc)}
+                {
+                    desc.map((text, index) => {
+                        return  <TaskItem 
+                                    key={ `${id}${index}` } 
+                                    taskTxt={ text } 
+                                    borderColor={ dayColor }  
+                                    delItem={ () => delItem(id, index) }/>
+                    })
+                }
             </ListTasks>
         </TaskContainer>
     );

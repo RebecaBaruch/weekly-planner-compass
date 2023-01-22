@@ -8,8 +8,8 @@ import ActionButton from './ActionButton';
 
 function PlannerAction({ onSaveTaskData, deleteDataHandler }) {
     const  [enteredDesc, setEnteredDesc] = useState('');
-    const  [enteredDay, setEnteredDay] = useState('');
-    const  [enteredTime, setEnteredTime] = useState('');
+    const  [enteredDay, setEnteredDay] = useState('monday');
+    const  [enteredTime, setEnteredTime] = useState('01h32');
 
     const descChangeHandler = (e) => {
         setEnteredDesc(e.target.value);
@@ -34,12 +34,11 @@ function PlannerAction({ onSaveTaskData, deleteDataHandler }) {
             };
             
             onSaveTaskData(taskData);
-            console.log(taskData);
-            setEnteredDesc('');
-            setEnteredDay('');
-            setEnteredTime('');
-        }
 
+            setEnteredDesc('');
+            setEnteredDay('monday');
+            setEnteredTime('01h32');
+        }
     };
 
     return(

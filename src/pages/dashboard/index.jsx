@@ -12,7 +12,7 @@ import TimeTask from "../../components/TimeTask";
 const all_tasks = [
     {
       id: 1,
-      desc: 'Teste',
+      desc: ['Teste', 'Teste 01.2'],
       day: 'monday',
       time: '11h24'
     }
@@ -20,17 +20,42 @@ const all_tasks = [
 
 function Dashboard() {
     const [tasks, setTasks] = useState(all_tasks);
-    const [filter, setFilter] = useState([]);
+    const [filter, setFilter] = useState('monday');
 
-    const addTaskHandler = (task) => {
-        setTasks(prevTasks => {
-            task = {
-                id: prevTasks.length + 1,
-                ...task
-            }
-            console.log(task);
-            return [task, ...prevTasks]
+    const addTaskHandler = ({ desc, day, time }) => {
+        console.log(desc, day, time);
+        let indexTask = tasks.findIndex((task) => {
+            return task.day === day && task.time === time;
         });
+        
+        const newTasks = [...tasks];
+
+        indexTask >= 0 ? 
+            newTasks[indexTask].desc.push(desc) : 
+            newTasks.push({
+                id: newTasks.length + 1,
+                day: day,
+                time: time,
+                desc: [desc]
+            });
+        
+        setTasks(newTasks);
+    }
+
+    const deleteItem = (id, index) => {
+        const newTasks = [...tasks];
+
+        let indexTask = tasks.findIndex((task) => {
+            return task.id === id;
+        });
+
+        if(newTasks[indexTask].desc.length === 1) {
+            newTasks.splice(indexTask, 1);
+        } else {
+            newTasks[indexTask].desc.splice(index, 1);
+        }
+
+            setTasks(newTasks);
     }
 
     const deleteAllHandler = () => {
@@ -64,7 +89,7 @@ function Dashboard() {
                     </CardsWrapper>
                     <TimeTask taskTime='Time' color='white' />
 
-                    <AllTasks tasks={ filteredTasks } />
+                    <AllTasks tasks={ filteredTasks } delItem={deleteItem}/>
                 </Planner>
             </MainContainer>
         </Wrapper>
