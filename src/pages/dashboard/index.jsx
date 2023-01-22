@@ -20,6 +20,7 @@ const all_tasks = [
 
 function Dashboard() {
     const [tasks, setTasks] = useState(all_tasks);
+    const [filteredTasks, setFilteredTasks] = useState([]);
 
     const addTaskHandler = (task) => {
         setTasks(prevTasks => {
@@ -36,8 +37,11 @@ function Dashboard() {
         setTasks('');
     }
 
-    
-    console.log(all_tasks.find(tasks => tasks.day === 'tuesday'));
+    const FilteringHandler = (day) => {
+        setFilteredTasks(tasks.filter((item) => {
+            return item.day === day;
+        }));
+    } 
 
     return(
         <Wrapper>
@@ -47,17 +51,17 @@ function Dashboard() {
                 <PlannerActions onSaveTaskData={addTaskHandler} deleteDataHandler={deleteAllHandler} />
                 <Planner>
                     <CardsWrapper>
-                        <Card className='monday'>Monday</Card>
-                        <Card className='tuesday'>Tuesday</Card>
-                        <Card className='wednesday'>Wednesday</Card>
-                        <Card className='thursday'>Thursday</Card>
-                        <Card className='friday'>Friday</Card>
-                        <Card className='saturday'>Saturday</Card>
-                        <Card className='sunday'>Sunday</Card>
+                        <Card className='monday' onClick={() => FilteringHandler('monday')}>Monday</Card>
+                        <Card className='tuesday' onClick={() => FilteringHandler('tuesday')}>Tuesday</Card>
+                        <Card className='wednesday' onClick={() => FilteringHandler('wednesday')}>Wednesday</Card>
+                        <Card className='thursday' onClick={() => FilteringHandler('thursday')}>Thursday</Card>
+                        <Card className='friday' onClick={() => FilteringHandler('friday')}>Friday</Card>
+                        <Card className='saturday' onClick={() => FilteringHandler('saturday')}>Saturday</Card>
+                        <Card className='sunday' onClick={() => FilteringHandler('sunday')}>Sunday</Card>
                     </CardsWrapper>
                     <TimeTask taskTime='Time' color='white' />
 
-                    <AllTasks tasks={ tasks } />
+                    <AllTasks tasks={ filteredTasks } />
                 </Planner>
             </MainContainer>
         </Wrapper>
