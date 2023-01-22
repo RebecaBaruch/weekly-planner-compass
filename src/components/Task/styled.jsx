@@ -19,6 +19,7 @@ export const TimeList = styled.div`
 `;
 
 export const ListTasks = styled.div`
+    position: relative;
     display: flex;
     justify-content: start;
     flex-direction: row;
@@ -28,4 +29,15 @@ export const ListTasks = styled.div`
     height: fit-content;
 
     background-color: ${({ borderColor }) => borderColor};
+
+    ${({ checkDesc }) => checkDesc ? 
+        `&:after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 0px;
+        border: 3px solid #000000b2;
+        border-radius: 5px; }` :
+        ""
+    }
 `;

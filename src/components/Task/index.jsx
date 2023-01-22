@@ -6,14 +6,14 @@ import TimeTask from "../TimeTask";
 import TaskItem from "../TaskItem";
 
 function Task({ desc, time, dayColor, id, delItem }) {
+    const checkDesc = desc.length > 1 ? true : false;
 
     return(
         <TaskContainer>
             <TimeList>
                 <TimeTask taskTime={ time } color={ dayColor } />
             </TimeList>
-            <ListTasks>
-                {console.log(desc)}
+            <ListTasks checkDesc={ checkDesc }>
                 {
                     desc.map((text, index) => {
                         return  <TaskItem 

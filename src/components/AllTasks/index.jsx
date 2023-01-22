@@ -10,8 +10,8 @@ export const TasksList = styled.div`
     flex-direction: column;
     gap: 1rem;
     overflow: scroll;
-    width: 100%;
-    height: 80%;
+    width: 95.5vw;
+    height: 50vh;
 
     &::-webkit-scrollbar {
         padding: 4px;
@@ -34,6 +34,10 @@ export const TasksList = styled.div`
     &::-webkit-scrollbar-thumb {
         background: #636363;        
         border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-corner {
+        visibility: hidden;
     }
 
 `;
