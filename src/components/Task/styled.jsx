@@ -26,4 +26,6 @@ export const ListTasks = styled.div`
     align-items: center;
     width: 100%;
     height: fit-content;
+
+    background-color: ${({ borderColor }) => borderColor};
 `;

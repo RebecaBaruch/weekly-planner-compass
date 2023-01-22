@@ -54,15 +54,7 @@ function AllTasks({ tasks }) {
                         desc={task.desc} 
                         time={task.time} 
                         day={task.day} 
-                        dayColor={
-                            task.day === 'monday' && '#FF0024' ||
-                            task.day === 'tuesday' && '#FF8000' ||
-                            task.day === 'wednesday' && '#FFCE00' ||
-                            task.day === 'thursday' && 'rgba(255, 0, 36, 0.7)' ||
-                            task.day === 'friday' && 'rgba(255, 128, 0, 0.7)' ||
-                            task.day === 'saturday' && 'rgba(255, 206, 0, 0.7)' ||
-                            task.day === 'sunday' && 'rgba(255, 0, 36, 0.5)'
-                        }
+                        dayColor={task.day}
                     />
                 ))
             }

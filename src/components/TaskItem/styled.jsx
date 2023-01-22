@@ -11,7 +11,16 @@ export const TaskBox = styled.div`
     height: 75px;
     text-align: left;
 
-    border-left: 15px solid ${({ borderColor}) => borderColor};
+    
+    --monday: #ff0024;
+    --tuesday: #ff8000;
+    --wednesday: #ffce00;
+    --thursday: rgba(255, 0, 36, 0.7);
+    --friday: rgba(255, 128, 0, 0.7);
+    --saturday: rgba(255, 206, 0, 0.7);
+    --sunday: rgba(255, 0, 36, 0.5);
+
+    border-left: 15px solid var(--${(props) => props.borderColor});
     border-top: 1px solid #FFFFFF;
     border-right: 1px solid #FFFFFF;
     border-bottom: 1px solid #FFFFFF;
