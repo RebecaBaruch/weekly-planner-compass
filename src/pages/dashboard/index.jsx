@@ -20,7 +20,7 @@ const all_tasks = [
 
 function Dashboard() {
     const [tasks, setTasks] = useState(all_tasks);
-    const [filteredTasks, setFilteredTasks] = useState([]);
+    const [filter, setFilter] = useState([]);
 
     const addTaskHandler = (task) => {
         setTasks(prevTasks => {
@@ -34,14 +34,17 @@ function Dashboard() {
     }
 
     const deleteAllHandler = () => {
-        setTasks('');
+        setTasks(prevTasks => {
+            return [...prevTasks].filter((item) => {
+                return item.day !== filter;
+            })
+        });
     }
 
-    const FilteringHandler = (day) => {
-        setFilteredTasks(tasks.filter((item) => {
-            return item.day === day;
-        }));
-    } 
+    const filteredTasks = [...tasks].filter((item) => {
+            return item.day === filter;
+    });
+    
 
     return(
         <Wrapper>
@@ -51,13 +54,13 @@ function Dashboard() {
                 <PlannerActions onSaveTaskData={addTaskHandler} deleteDataHandler={deleteAllHandler} />
                 <Planner>
                     <CardsWrapper>
-                        <Card className='monday' onClick={() => FilteringHandler('monday')}>Monday</Card>
-                        <Card className='tuesday' onClick={() => FilteringHandler('tuesday')}>Tuesday</Card>
-                        <Card className='wednesday' onClick={() => FilteringHandler('wednesday')}>Wednesday</Card>
-                        <Card className='thursday' onClick={() => FilteringHandler('thursday')}>Thursday</Card>
-                        <Card className='friday' onClick={() => FilteringHandler('friday')}>Friday</Card>
-                        <Card className='saturday' onClick={() => FilteringHandler('saturday')}>Saturday</Card>
-                        <Card className='sunday' onClick={() => FilteringHandler('sunday')}>Sunday</Card>
+                        <Card className='monday' onClick={() => setFilter('monday')}>Monday</Card>
+                        <Card className='tuesday' onClick={() =>  setFilter('tuesday')}>Tuesday</Card>
+                        <Card className='wednesday' onClick={() =>  setFilter('wednesday')}>Wednesday</Card>
+                        <Card className='thursday' onClick={() =>  setFilter('thursday')}>Thursday</Card>
+                        <Card className='friday' onClick={() =>  setFilter('friday')}>Friday</Card>
+                        <Card className='saturday' onClick={() =>  setFilter('saturday')}>Saturday</Card>
+                        <Card className='sunday' onClick={() =>  setFilter('sunday')}>Sunday</Card>
                     </CardsWrapper>
                     <TimeTask taskTime='Time' color='white' />
 
