@@ -9,21 +9,13 @@ import { CardsWrapper, Card, MainContainer, Planner } from './styled';
 import AllTasks from "../../components/AllTasks";
 import TimeTask from "../../components/TimeTask";
 
-const all_tasks = [
-    {
-      id: 1,
-      desc: ['Teste', 'Teste 01.2'],
-      day: 'monday',
-      time: '11h24'
-    }
-  ];
+const all_tasks = [];
 
 function Dashboard() {
     const [tasks, setTasks] = useState(all_tasks);
     const [filter, setFilter] = useState('monday');
 
     const addTaskHandler = ({ desc, day, time }) => {
-        console.log(desc, day, time);
         let indexTask = tasks.findIndex((task) => {
             return task.day === day && task.time === time;
         });
@@ -68,8 +60,7 @@ function Dashboard() {
 
     const filteredTasks = [...tasks].filter((item) => {
             return item.day === filter;
-    });
-    
+    }).sort((a, b) => a.time.localeCompare(b.time));
 
     return(
         <Wrapper>
