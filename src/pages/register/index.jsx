@@ -192,9 +192,10 @@ function Register() {
                     <AccountButton type='submit' disabled={errorExists}>Register Now</AccountButton>
                 </Form>
 
-                <AccountLink>
+                <AccountLink >
                     <Link to='/login'>
-                        Have an account yet? Login
+                        Have an account yet? <br></br>
+                        <span>Login</span>
                     </Link>
                 </AccountLink>
             </MiddleWrapper>

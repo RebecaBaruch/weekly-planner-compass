@@ -65,4 +65,11 @@ export const AccountLink = styled.span`
     font-weight: 300;
     color: white;
     text-align: center;
+    a {
+        color: white;
+    }
+
+    span{
+        color: #FF3D1F;
+    }
 `
