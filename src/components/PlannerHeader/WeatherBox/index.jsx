@@ -8,10 +8,10 @@ import { WeatherContainer, WeatherTitle, WeatherText } from './styled';
 
 function WeatherBox() {
 
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    const userLocation = JSON.parse(localStorage.getItem('userLocation'));
     const [weatherForecast, setWeatherForecast] = useState(null);
 
-    fetch(`http://api.weatherapi.com/v1/current.json?key=99cefa819b3d466fb3815836231901&q=${userData.city}&aqi=no`)
+    fetch(`http://api.weatherapi.com/v1/current.json?key=99cefa819b3d466fb3815836231901&q=${userLocation.city}&aqi=no`)
     .then((response) => {
         if(response.status === 200) {
             return response.json();
@@ -25,14 +25,14 @@ function WeatherBox() {
         <WeatherContainer>
             {
                  weatherForecast ?
-                 <WeatherText>{userData.city}</WeatherText> :
+                 <WeatherText>{userLocation.city}</WeatherText> :
                  null
             }
             {
                weatherForecast ?
                 <WeatherTitle>
                     <img src={weatherForecast.current.condition.icon} width='45px' alt='weather icon' />
-                    {weatherForecast.current.temp_c}
+                    {weatherForecast.current.temp_c}°
                 </WeatherTitle> :
                 null
             }

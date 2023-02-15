@@ -16,13 +16,14 @@ function Register() {
     const {userData, setUserData} = useContext(RegisterContext);
     const [errorExists, setErrorExists] = useState(false);
 
-    //inputs validation errors
+    //set user data to the context
     const setData = (input) => {
         setUserData((prevState) => {
             return  {...prevState, [input.name]: input.value}
         })
     } 
     
+    //inputs validation errors
     const verifyDataHandler = (e) => {
         let input = e.target;
 
@@ -117,7 +118,12 @@ function Register() {
             }
 
             registerRequest(userDataRequest);
-            // localStorage.setItem("userData", JSON.stringify(userData));
+            const userLocation = {
+                country: userData.country,
+                city: userData.city
+            }
+            localStorage.setItem("userLocation", JSON.stringify(userLocation));
+            // localStorage.setItem("userCity", JSON.stringify(userData.city));
         }
     }
 

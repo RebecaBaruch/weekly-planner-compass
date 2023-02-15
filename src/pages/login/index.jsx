@@ -17,32 +17,57 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const userData = JSON.parse(localStorage.getItem('userData'));
+    // const userLocation = JSON.parse(localStorage.getItem('userLocation'));
     const [errorExists, setErrorExists] = useState(false);
 
     let emailRef = useRef();
     let passwordRef = useRef();
 
+    const loginRequest = (userData) => {
+        fetch('https://latam-challenge-2.deta.dev/api/v1/users/sign-in', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify(userData)
+        })
+        .then((res) => {
+            if(res.status === 200 | res.status === 201) {
+                navigate('/dashboard');
+                console.log(res);
+            } 
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data);
+        })
+    }
+
     const submitHandler = (e) => {
         e.preventDefault();
         
-        let emailError = emailRef.current.value !== '' && (emailRef.current.value === userData.email || (emailRef.current.value === (userData.firstName + ' ' + userData.lastName)));
-        let passwordError = passwordRef.current.value === '' || passwordRef.current.value !== userData.password;
+        // let emailError = emailRef.current.value !== '' && (emailRef.current.value === userData.email || (emailRef.current.value === (userData.firstName + ' ' + userData.lastName)));
+        // let passwordError = passwordRef.current.value === '' || passwordRef.current.value !== userData.password;
 
         const errorStyle = (ref) => {
             ref.current.style.border = "1px solid #E9B425";
         }
 
-        if(!emailError || passwordError) {
-            if(!emailError) errorStyle(emailRef);
-            if(passwordError) errorStyle(passwordRef);
-            setErrorExists(true);
-        } else {
-            ctxt.onLogin();
-            navigate('/dashboard');
+        const userDataRequest =  {
+            email: emailRef.current.value,
+            password: passwordRef.current.value
         }
-    }
 
+        // if(!emailError || passwordError) {
+        //     // if(!emailError) errorStyle(emailRef);
+        //     // if(passwordError) errorStyle(passwordRef);
+        //     setErrorExists(true);
+        // } else {
+            ctxt.onLogin();
+            loginRequest(userDataRequest);
+            // navigate('/dashboard');
+        // }
+    }
 
     return(
         <FormWrapper>
