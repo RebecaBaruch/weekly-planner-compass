@@ -16,6 +16,7 @@ function Register() {
     const {userData, setUserData} = useContext(RegisterContext);
     const [errorExists, setErrorExists] = useState(false);
 
+    //inputs validation errors
     const setData = (input) => {
         setUserData((prevState) => {
             return  {...prevState, [input.name]: input.value}
@@ -55,6 +56,27 @@ function Register() {
     let emailRef = useRef();
     let passwordRef = useRef(); 
     let confirmPasswordRef = useRef(); 
+    
+    //requisição com api
+    const registerRequest = (userData) => {
+        fetch('https://latam-challenge-2.deta.dev/api/v1/users/sign-up', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify(userData)
+        })
+        .then((res) => {
+            if(res.status === 200 | res.status === 201) {
+                navigate('/login');
+                console.log(res);
+            } 
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data);
+        })
+    };
 
     const formSubmissionHandler = (e) => {
         e.preventDefault();
@@ -83,8 +105,19 @@ function Register() {
         if(confirmPassword) errorStyle(confirmPasswordRef);
 
         if(!firstName && !lastName && !birthDate && !country && !city && !email && !password && !confirmPassword) {
-            navigate('/login');
-            localStorage.setItem("userData", JSON.stringify(userData));
+            const userDataRequest =  {
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                birthDate: userData.birthDate,
+                country: userData.country,
+                city: userData.city,
+                email: userData.email,
+                password: userData.password,
+                confirmPassword: userData.confirmPassword
+            }
+
+            registerRequest(userDataRequest);
+            // localStorage.setItem("userData", JSON.stringify(userData));
         }
     }
 
