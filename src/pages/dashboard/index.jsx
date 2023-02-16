@@ -46,8 +46,8 @@ function Dashboard() {
         } else {
             newTasks[indexTask].desc.splice(index, 1);
         }
-
-            setTasks(newTasks);
+        
+        setTasks(newTasks);
     }
 
     const deleteAllHandler = () => {

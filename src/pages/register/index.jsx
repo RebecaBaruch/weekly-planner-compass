@@ -2,6 +2,9 @@ import React, { useState, useContext, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 // import useInput from "../../helpers/user-input";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { FormWrapper, Form, MiddleWrapper, ImageForm, ErrorMessage, AccountLink } from '../../global/globalStyles';
 import { RegisterContext } from '../../context/register-hook';
 import Label from '../../components/Label';
@@ -57,8 +60,21 @@ function Register() {
     let emailRef = useRef();
     let passwordRef = useRef(); 
     let confirmPasswordRef = useRef(); 
+
+    const notify = (message) => {
+        toast.error(message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+    }
     
-    //requisição com api
+    //request with api
     const registerRequest = (userData) => {
         fetch('https://latam-challenge-2.deta.dev/api/v1/users/sign-up', {
             method: 'POST',
@@ -71,11 +87,12 @@ function Register() {
             if(res.status === 200 | res.status === 201) {
                 navigate('/login');
                 console.log(res);
-            } 
+            }
             return res.json();
         })
         .then((data) => {
             console.log(data);
+            notify(data);
         })
     };
 
@@ -244,6 +261,8 @@ function Register() {
                     <img src={CompassLogo} alt='Compass logo' width='45%' />
                 </a>
             </ImageForm>
+
+            <ToastContainer />
         </FormWrapper>
     );
 }
