@@ -8,7 +8,7 @@ import { WeatherContainer, WeatherTitle, WeatherText } from './styled';
 
 function WeatherBox() {
 
-    const userLocation = JSON.parse(localStorage.getItem('userLocation'));
+    const userLocation = JSON.parse(localStorage.getItem('isLogged'));
     const [weatherForecast, setWeatherForecast] = useState(null);
 
     fetch(`http://api.weatherapi.com/v1/current.json?key=99cefa819b3d466fb3815836231901&q=${userLocation.city}&aqi=no`)

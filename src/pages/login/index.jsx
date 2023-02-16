@@ -16,6 +16,7 @@ import { IconInputBox, Icon } from './styled';
 function Login() {
     const navigate = useNavigate();
     const ctxt = useContext(RegisterContext);
+    const {isLoggedIn, setIsLoggedIn} = ctxt;
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -63,14 +64,30 @@ function Login() {
         })
         .then((data) => {
             console.log(data);
-            let inputErrors = emailRef.current.value === '' || passwordRef.current.value === '' || data;
+            
+            if(typeof data === 'object') {
+                if(data.message) {
+                    let inputErrors = emailRef.current.value === '' || passwordRef.current.value === '' || data;
+        
+                    if(inputErrors) {
+                        errorStyle(emailRef, passwordRef);
+                        setErrorExists(true);
+                    }
+                    notify(data.message);
+                }
 
-            if(inputErrors) {
-                errorStyle(emailRef, passwordRef);
-                setErrorExists(true);
+                const tokenData = {
+                    token: data.token,
+                    city: data.user.city,
+                    country: data.user.country,
+                    id: data.user._id
+                };
+    
+                setIsLoggedIn(true);
+                localStorage.setItem('isLogged', JSON.stringify(tokenData));
+                navigate('/dashboard');
             }
-            notify(data.message);
-        })
+        });
     }
 
     const submitHandler = (e) => {
