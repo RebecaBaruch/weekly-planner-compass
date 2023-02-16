@@ -1,6 +1,9 @@
 import React, { useState, useRef, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { FormWrapper, Form, MiddleWrapper, ImageForm, SubTitle, ErrorMessage, AccountLink } from '../../global/globalStyles';
 import { RegisterContext } from '../../context/register-hook';
 
@@ -17,12 +20,30 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // const userLocation = JSON.parse(localStorage.getItem('userLocation'));
     const [errorExists, setErrorExists] = useState(false);
 
     let emailRef = useRef();
     let passwordRef = useRef();
 
+    const notify = (message) => {
+        toast.error(message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+    }
+
+    //function for attr styles for inputs errors
+    const errorStyle = (ref) => {
+        ref.current.style.border = "1px solid #E9B425";
+    }
+
+    //fetch for login request
     const loginRequest = (userData) => {
         fetch('https://latam-challenge-2.deta.dev/api/v1/users/sign-in', {
             method: 'POST',
@@ -40,33 +61,27 @@ function Login() {
         })
         .then((data) => {
             console.log(data);
+            let inputErrors = emailRef.current.value === '' || passwordRef.current.value === '' || data;
+
+            if(inputErrors) {
+                errorStyle(emailRef);
+                errorStyle(passwordRef);
+                setErrorExists(true);
+            }
+            notify(data.message);
         })
     }
 
     const submitHandler = (e) => {
         e.preventDefault();
-        
-        // let emailError = emailRef.current.value !== '' && (emailRef.current.value === userData.email || (emailRef.current.value === (userData.firstName + ' ' + userData.lastName)));
-        // let passwordError = passwordRef.current.value === '' || passwordRef.current.value !== userData.password;
-
-        const errorStyle = (ref) => {
-            ref.current.style.border = "1px solid #E9B425";
-        }
 
         const userDataRequest =  {
             email: emailRef.current.value,
             password: passwordRef.current.value
         }
 
-        // if(!emailError || passwordError) {
-        //     // if(!emailError) errorStyle(emailRef);
-        //     // if(passwordError) errorStyle(passwordRef);
-        //     setErrorExists(true);
-        // } else {
-            ctxt.onLogin();
-            loginRequest(userDataRequest);
-            // navigate('/dashboard');
-        // }
+        ctxt.onLogin();
+        loginRequest(userDataRequest);
     }
 
     return(
@@ -115,6 +130,8 @@ function Login() {
             <ImageForm>
                 <img src={CompassLogo} alt='Compass logo' width='45%'/>
             </ImageForm>
+
+            <ToastContainer />
         </FormWrapper>
     );
 }
