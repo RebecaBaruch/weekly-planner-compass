@@ -38,9 +38,11 @@ function Login() {
             });
     }
 
-    //function for attr styles for inputs errors
-    const errorStyle = (ref) => {
-        ref.current.style.border = "1px solid #E9B425";
+    //function for attr styles to the inputs errors
+    const errorStyle = (emailRef, passwordRef) => {
+        const style = "1px solid #E9B425"
+        emailRef.current.style.border = style;
+        passwordRef.current.style.border = style;
     }
 
     //fetch for login request
@@ -64,8 +66,7 @@ function Login() {
             let inputErrors = emailRef.current.value === '' || passwordRef.current.value === '' || data;
 
             if(inputErrors) {
-                errorStyle(emailRef);
-                errorStyle(passwordRef);
+                errorStyle(emailRef, passwordRef);
                 setErrorExists(true);
             }
             notify(data.message);
