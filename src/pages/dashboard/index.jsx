@@ -6,6 +6,7 @@ import PlannerActions from "../../components/PlannerActions";
 
 import notify from "../../utils/notify";
 import PacmanLoader from "react-spinners/PacmanLoader";
+import swal from "@sweetalert/with-react";
 
 import { CardsWrapper, Card, MainContainer, Planner } from "./styled";
 
@@ -99,40 +100,60 @@ function Dashboard() {
 
   //function to delete specific tasks
   const deleteItem = (id) => {
-    fetch(`https://latam-challenge-2.deta.dev/api/v1/events/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token.token}`,
-      },
-    })
-      .then(() => {
-        resetState();
-      })
-      .then((data) => {
-        notify(data, "success");
-      });
+    swal({
+      title: "Are you sure?",
+      text: "This task is supposed to be deleted.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        fetch(`https://latam-challenge-2.deta.dev/api/v1/events/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token.token}`,
+          },
+        })
+          .then(() => {
+            resetState();
+          })
+          .then((data) => {
+            notify(data, "success");
+          });
+      }
+    });
   };
 
   //function to delete all tasks
   const deleteAllHandler = () => {
-    fetch(
-      `https://latam-challenge-2.deta.dev/api/v1/events?dayOfWeek=${filter}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token.token}`,
-        },
+    swal({
+      title: "Are you sure?",
+      text: "You are supposed to delete all tasks.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        fetch(
+          `https://latam-challenge-2.deta.dev/api/v1/events?dayOfWeek=${filter}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token.token}`,
+            },
+          }
+        )
+          .then(() => {
+            resetState();
+          })
+          .then((data) => {
+            notify(data, "success");
+          });
       }
-    )
-      .then(() => {
-        resetState();
-      })
-      .then((data) => {
-        notify(data, "success");
-      });
+    });
   };
 
-  //filter the tasks
+  //filter the tasks by the current day
   const filteredTasks = tasks.filter((item) => {
     return item.day === filter;
   });
@@ -174,8 +195,8 @@ function Dashboard() {
           <TimeTask taskTime="Time" color="white" />
 
           {loading && (
-            <LoadingScreen bg='task'>
-              <PacmanLoader  color="#E9B425" size={20} loading={loading} />
+            <LoadingScreen bg="task">
+              <PacmanLoader color="#E9B425" size={20} loading={loading} />
             </LoadingScreen>
           )}
           <AllTasks tasks={filteredTasks} delItem={deleteItem} />
