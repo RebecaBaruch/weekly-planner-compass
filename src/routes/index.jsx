@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import ProtectedRouter from './ProtectedRouter';
 
-import { RegisterContext } from '../context/register-hook';
+// import { RegisterContext } from '../context/register-hook';
 
 import Register from '../pages/register';
 import Login from '../pages/login';
 import Dashboard from '../pages/dashboard';
 
 function RoutesManager() {
-    const { isLoggedIn } = useContext(RegisterContext);
+    // const { isLoggedIn } = useContext(RegisterContext);
 
     return(
         <Router>
@@ -18,7 +19,7 @@ function RoutesManager() {
                 <Route path='/login' element={<Login />} />
                 <Route 
                     path='/dashboard' 
-                    element={!isLoggedIn ? <Navigate to='/' /> : <Dashboard />} 
+                    element={<ProtectedRouter> <Dashboard /> </ProtectedRouter>} 
                 />
             </Routes>
         </Router>

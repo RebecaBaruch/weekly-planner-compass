@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Header, ActionContainer } from './styled';
-
-import { RegisterContext } from '../../context/register-hook';
+import { useNavigate } from 'react-router-dom';
 
 import CompassLink from '../CompassLink';
 
@@ -11,10 +10,13 @@ import WeatherBox from './WeatherBox';
 import LogoutButton from './LogoutButton';
 
 function PlannerHeader() {
-    const ctxt = useContext(RegisterContext);
+    // const ctxt = useContext(RegisterContext);
+    const navigate = useNavigate();
 
     const logOut = () => {
-        ctxt.onLogout()    
+        // ctxt.onLogout() 
+        localStorage.removeItem('isLogged');
+        navigate('/login');
     }
 
     return(

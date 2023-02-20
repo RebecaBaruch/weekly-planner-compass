@@ -14,7 +14,7 @@ import {
   AccountLink,
   LoadingScreen
 } from "../../global/globalStyles";
-import { RegisterContext } from "../../context/register-hook";
+// import { RegisterContext } from "../../context/register-hook";
 
 import InputData from "../../components/InputData";
 import HeaderTitle from "../../components/HeaderTitle";
@@ -24,8 +24,8 @@ import { IconInputBox, Icon } from "./styled";
 
 function Login() {
   const navigate = useNavigate();
-  const ctxt = useContext(RegisterContext);
-  const { isLoggedIn, setIsLoggedIn } = ctxt;
+  // const ctxt = useContext(RegisterContext);
+  // const { isLoggedIn, setIsLoggedIn } = ctxt;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -74,6 +74,8 @@ function Login() {
               setErrorExists(true);
             }
             notify(data.message, "error");
+          } else {
+            notify(data, "error");
           }
 
           const tokenData = {
@@ -83,7 +85,7 @@ function Login() {
             id: data.user._id,
           };
 
-          setIsLoggedIn(true);
+          // setIsLoggedIn(true);
           localStorage.setItem("isLogged", JSON.stringify(tokenData));
           navigate("/dashboard");
         }
@@ -98,7 +100,7 @@ function Login() {
       password: passwordRef.current.value,
     };
 
-    ctxt.onLogin();
+    // ctxt.onLogin();
     loginRequest(userDataRequest);
   };
 

@@ -14,7 +14,7 @@ import {
   AccountLink,
   LoadingScreen
 } from "../../global/globalStyles";
-import { RegisterContext } from "../../context/register-hook";
+// import { RegisterContext } from "../../context/register-hook";
 import Label from "../../components/Label";
 import InputData from "../../components/InputData";
 import HeaderTitle from "../../components/HeaderTitle";
