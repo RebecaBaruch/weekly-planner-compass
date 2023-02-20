@@ -64,7 +64,7 @@ I need to fix this in the future.
 
 ## :books: :hammer_and_wrench:	Libraries and APIs
 
-Swagger API
+Swagger API<br>
 WeatherAPI
 Toastify
  ```
