@@ -14,7 +14,9 @@ import {
   AccountLink,
   LoadingScreen
 } from "../../global/globalStyles";
-// import { RegisterContext } from "../../context/register-hook";
+
+import { RegisterContext } from "../../context/register-hook";
+
 import Label from "../../components/Label";
 import InputData from "../../components/InputData";
 import HeaderTitle from "../../components/HeaderTitle";
@@ -28,7 +30,7 @@ function Register() {
   const [errorExists, setErrorExists] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  //set user data to the context
+  // //set user data to the context
   const setData = (input) => {
     setUserData((prevState) => {
       return { ...prevState, [input.name]: input.value };
@@ -157,14 +159,6 @@ function Register() {
       };
 
       registerRequest(userDataRequest);
-
-      //set the user location for local storage
-      const userLocation = {
-        country: userData.country,
-        city: userData.city,
-      };
-      localStorage.setItem("userLocation", JSON.stringify(userLocation));
-      // localStorage.setItem("userCity", JSON.stringify(userData.city));
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import PropagateLoader from "react-spinners/PropagateLoader ";
@@ -14,7 +14,6 @@ import {
   AccountLink,
   LoadingScreen
 } from "../../global/globalStyles";
-// import { RegisterContext } from "../../context/register-hook";
 
 import InputData from "../../components/InputData";
 import HeaderTitle from "../../components/HeaderTitle";
@@ -24,8 +23,6 @@ import { IconInputBox, Icon } from "./styled";
 
 function Login() {
   const navigate = useNavigate();
-  // const ctxt = useContext(RegisterContext);
-  // const { isLoggedIn, setIsLoggedIn } = ctxt;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -85,8 +82,14 @@ function Login() {
             id: data.user._id,
           };
 
-          // setIsLoggedIn(true);
+          //set the user location for local storage
+          const userLocation = {
+            country: data.user.country,
+            city: userData.city
+          };
+          
           localStorage.setItem("isLogged", JSON.stringify(tokenData));
+          localStorage.setItem("userLocation", JSON.stringify(userLocation));
           navigate("/dashboard");
         }
       });
@@ -100,7 +103,6 @@ function Login() {
       password: passwordRef.current.value,
     };
 
-    // ctxt.onLogin();
     loginRequest(userDataRequest);
   };
 

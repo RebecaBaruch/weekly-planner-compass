@@ -10,11 +10,9 @@ import WeatherBox from './WeatherBox';
 import LogoutButton from './LogoutButton';
 
 function PlannerHeader() {
-    // const ctxt = useContext(RegisterContext);
     const navigate = useNavigate();
 
     const logOut = () => {
-        // ctxt.onLogout() 
         localStorage.removeItem('isLogged');
         navigate('/login');
     }
