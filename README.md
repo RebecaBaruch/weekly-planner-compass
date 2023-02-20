@@ -58,8 +58,8 @@ I need to fix this in the future.
     <li>HTML3</li>
     <li>Styled components</li>
     <li>JavaScript</li>
-    <li>React JS.</li>
-    <li>Weather API</li>
+    <li>React JS</li>
+    <li>CSS</li>
 </ul>
 
 ## :books: :hammer_and_wrench:	Libraries and APIs
