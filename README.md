@@ -63,17 +63,14 @@ I need to fix this in the future.
 </ul>
 
 ## :books: :hammer_and_wrench:	Libraries and APIs
-<ul> 
-    <li>Swagger API</li>
-    <li>WeatherAPI</li>
-    <li>Toastify</li>
-</ul>
-     ```
-     npm install --save react-toastify
-     ```
-<ul>
-    <li>SweetAlert for React</li>
-</ul>
-    ```
-    npm install @sweetalert/with-react
-    ```
+
+Swagger API
+WeatherAPI
+Toastify
+ ```
+ npm install --save react-toastify
+ ```
+SweetAlert for React
+ ```
+ npm install @sweetalert/with-react
+  ```
