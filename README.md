@@ -3,14 +3,16 @@
 
 ### 🔑 Mandatory requirements
 <ul> 
+     <li>You need to use the api to store the users</li>
+     <li>In the api you have all the content that you have to send in your request to the
+     backend</li>
     <li>You need to respect the specified colors.</li>
-    <li>Do not use external libraries like bootstrap, material-ui, tailwind and amongothers.</li>
     <li>Remember to make small commits within your develop.</li>
 </ul>
 
 ### 🔑  Additional Functionality (NOT MANDATORY)
 <ul> 
-    <li>If you wish, you can make the screen responsive, but at this moment is notmandatory.</li>
+    <li>If you wish, you can make the screen responsive, but at this moment is not mandatory.</li>
     <li>You can use Sass, CSS pure, Less, styled-componets and css-module.</li>
 </ul>
 
@@ -58,4 +60,12 @@ I need to fix this in the future.
     <li>JavaScript</li>
     <li>React JS.</li>
     <li>Weather API</li>
+</ul>
+
+## :books: :hammer_and_wrench:	Libraries and APIs
+<ul> 
+    <li>Swagger API</li>
+    <li>WeatherAPI</li>
+    <li>Toastfy</li>
+    <li>SweetAlert for React</li>
 </ul>
