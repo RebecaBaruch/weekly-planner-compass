@@ -66,6 +66,12 @@ I need to fix this in the future.
 <ul> 
     <li>Swagger API</li>
     <li>WeatherAPI</li>
-    <li>Toastfy</li>
+    <li>Toastify</li>
+    ```
+    npm install --save react-toastify
+    ```
     <li>SweetAlert for React</li>
+    ```
+    npm install @sweetalert/with-react
+    ```
 </ul>
