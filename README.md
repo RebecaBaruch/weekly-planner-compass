@@ -25,7 +25,7 @@ Git clone.
 git clone https://github.com/RebecaBaruch/Survey_Form.git
 ```
 Install all development dependencies and how to run.
-```sh
+```
 npm install
 npm run dev
 ```
@@ -67,11 +67,13 @@ I need to fix this in the future.
     <li>Swagger API</li>
     <li>WeatherAPI</li>
     <li>Toastify</li>
-    ```
-    npm install --save react-toastify
-    ```
+</ul>
+     ```
+     npm install --save react-toastify
+     ```
+<ul>
     <li>SweetAlert for React</li>
+</ul>
     ```
     npm install @sweetalert/with-react
     ```
-</ul>
