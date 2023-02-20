@@ -12,7 +12,7 @@ import {
   SubTitle,
   ErrorMessage,
   AccountLink,
-  LoadingScreen,
+  LoadingScreen
 } from "../../global/globalStyles";
 import { RegisterContext } from "../../context/register-hook";
 

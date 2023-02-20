@@ -1,41 +1,27 @@
 import React, { useState, useEffect } from "react";
 
-import { Wrapper } from "../../global/globalStyles";
+import { Wrapper, LoadingScreen } from "../../global/globalStyles";
 import PlannerHeader from "../../components/PlannerHeader";
 import PlannerActions from "../../components/PlannerActions";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import notify from "../../utils/notify";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 import { CardsWrapper, Card, MainContainer, Planner } from "./styled";
 
 import AllTasks from "../../components/AllTasks";
 import TimeTask from "../../components/TimeTask";
 
-// const all_tasks = [];
-
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState("monday");
+  const [loading, setLoading] = useState(false);
 
   const token = JSON.parse(localStorage.getItem("isLogged"));
 
-  //modal for errors exibit
-  const notify = (message) => {
-    toast.error(message, {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
-  };
-
   //get tasks data, api
   const getTaskDataRequest = () => {
+    setLoading(true);
     fetch(`https://latam-challenge-2.deta.dev/api/v1/events`, {
       method: "GET",
       headers: {
@@ -47,6 +33,7 @@ function Dashboard() {
         return res.json();
       })
       .then((data) => {
+        setLoading(false);
         if (data.message) {
           console.log("error");
         } else {
@@ -63,7 +50,7 @@ function Dashboard() {
             };
 
             addTaskHandler(dataTask);
-            notify(data);
+            notify(data, "success");
           }
         }
       })
@@ -117,11 +104,13 @@ function Dashboard() {
       headers: {
         Authorization: `Bearer ${token.token}`,
       },
-    }).then(() => {
-      resetState();
-    }).then((data) => {
-        notify(data);
-    });
+    })
+      .then(() => {
+        resetState();
+      })
+      .then((data) => {
+        notify(data, "success");
+      });
   };
 
   //function to delete all tasks
@@ -134,11 +123,13 @@ function Dashboard() {
           Authorization: `Bearer ${token.token}`,
         },
       }
-    ).then(() => {
-      resetState();
-    }).then((data) => {
-        notify(data);
-    });
+    )
+      .then(() => {
+        resetState();
+      })
+      .then((data) => {
+        notify(data, "success");
+      });
   };
 
   //filter the tasks
@@ -182,10 +173,14 @@ function Dashboard() {
           </CardsWrapper>
           <TimeTask taskTime="Time" color="white" />
 
+          {loading && (
+            <LoadingScreen bg='task'>
+              <PacmanLoader  color="#E9B425" size={20} loading={loading} />
+            </LoadingScreen>
+          )}
           <AllTasks tasks={filteredTasks} delItem={deleteItem} />
         </Planner>
       </MainContainer>
-
     </Wrapper>
   );
 }
