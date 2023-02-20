@@ -13,6 +13,7 @@ function AllTasks({ tasks, delItem }) {
       {tasks.map((task) => {
         return(
             <Task
+              key={task.id}
               id={task.id}
               desc={task.desc}
               time={task.time}

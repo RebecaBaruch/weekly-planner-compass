@@ -1,8 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Wrapper } from "../../global/globalStyles";
 import PlannerHeader from "../../components/PlannerHeader";
 import PlannerActions from "../../components/PlannerActions";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { CardsWrapper, Card, MainContainer, Planner } from "./styled";
 
@@ -12,164 +15,179 @@ import TimeTask from "../../components/TimeTask";
 // const all_tasks = [];
 
 function Dashboard() {
-    const [tasks, setTasks] = useState([]);
-    const [filter, setFilter] = useState("monday");
+  const [tasks, setTasks] = useState([]);
+  const [filter, setFilter] = useState("monday");
 
-    const token = JSON.parse(localStorage.getItem("isLogged"));
-    console.log(token.token);
+  const token = JSON.parse(localStorage.getItem("isLogged"));
 
-    //get tasks data, api
-    const getTaskDataRequest = () => {
-        fetch(`https://latam-challenge-2.deta.dev/api/v1/events`, {
-            method: "GET",
-            headers: {
-                "Content-type": `application/json; charset=UTF-8`,
-                Authorization: `Bearer ${token.token}`,
-            },
-        })
-            .then((res) => {
-                return res.json();
-            })
-            .then((data) => {
-                if (data.message) {
-                    console.log("error");
-                } else {
-                    for (const event of data.events) {
-                        let timeAt = event.createdAt.split("T")[1];
-                        let time = `${timeAt.split(":")[0]}:${timeAt.split(":")[1]}`;
+  //modal for errors exibit
+  const notify = (message) => {
+    toast.error(message, {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+  };
 
-                        const dataTask = {
-                            id: event._id,
-                            desc: event.description,
-                            time: time,
-                            day: event.dayOfWeek,
-                            dayColor: event.dayOfWeek,
-                        };
+  //get tasks data, api
+  const getTaskDataRequest = () => {
+    fetch(`https://latam-challenge-2.deta.dev/api/v1/events`, {
+      method: "GET",
+      headers: {
+        "Content-type": `application/json; charset=UTF-8`,
+        Authorization: `Bearer ${token.token}`,
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        if (data.message) {
+          console.log("error");
+        } else {
+          for (const event of data.events) {
+            let timeAt = event.createdAt.split("T")[1];
+            let time = `${timeAt.split(":")[0]}:${timeAt.split(":")[1]}`;
 
-                        addTaskHandler(dataTask);
-                    }
-                }
-            })
-            .catch((err) => {
-                console.error(err);
-            });
-    };
+            const dataTask = {
+              id: event._id,
+              desc: event.description,
+              time: time,
+              day: event.dayOfWeek,
+              dayColor: event.dayOfWeek,
+            };
 
-    let newTasks = [];
+            addTaskHandler(dataTask);
+            notify(data);
+          }
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
-    useEffect(() => {
-        resetState();
-    }, []);
+  let newTasks = [];
 
-    const resetState = () => {
-        newTasks = [];
-        setTasks([]);
-        getTaskDataRequest();
-    }
+  useEffect(() => {
+    resetState();
+  }, []);
 
-    //function for adding tasks
-    const addTaskHandler = (dataTask) => {
-        const indexTask = newTasks.findIndex((task) => {
-            return task.day === dataTask.day && task.time === dataTask.time;
-        });
+  const resetState = () => {
+    newTasks = [];
+    setTasks([]);
+    getTaskDataRequest();
+  };
 
-        indexTask >= 0
-            ? newTasks[indexTask].desc.push({
-                id: dataTask.id,
-                desc: dataTask.desc,
-            })
-            : newTasks.push({
-                id: dataTask.id + 1,
-                day: dataTask.day,
-                time: dataTask.time,
-                desc: [
-                    {
-                        id: dataTask.id,
-                        desc: dataTask.desc,
-                    },
-                ],
-            });
-
-        setTasks(newTasks);
-    };
-
-    //function to delete specific tasks
-    const deleteItem = (id) => {
-        fetch(`https://latam-challenge-2.deta.dev/api/v1/events/${id}`, {
-            method: "DELETE",
-            headers: {
-                Authorization: `Bearer ${token.token}`,
-            },
-        })
-            .then(() => {
-                resetState();
-            }
-        );
-    };
-
-    //function to delete all tasks
-    const deleteAllHandler = () => {
-        fetch(
-            `https://latam-challenge-2.deta.dev/api/v1/events?dayOfWeek=${filter}`,
-            {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token.token}`,
-                },
-            }
-        )
-            .then(() => {
-                resetState();
-            }
-    );
-    };
-
-    //filter the tasks
-    const filteredTasks = tasks.filter((item) => {
-        return item.day === filter;
+  //function for adding tasks
+  const addTaskHandler = (dataTask) => {
+    const indexTask = newTasks.findIndex((task) => {
+      return task.day === dataTask.day && task.time === dataTask.time;
     });
 
-    return (
-        <Wrapper>
-            <PlannerHeader />
+    indexTask >= 0
+      ? newTasks[indexTask].desc.push({
+          id: dataTask.id,
+          desc: dataTask.desc,
+        })
+      : newTasks.push({
+          id: dataTask.id + 1,
+          day: dataTask.day,
+          time: dataTask.time,
+          desc: [
+            {
+              id: dataTask.id,
+              desc: dataTask.desc,
+            },
+          ],
+        });
 
-            <MainContainer>
-                <PlannerActions
-                    getTaskDataRequest={getTaskDataRequest}
-                    onSaveTaskData={addTaskHandler}
-                    deleteDataHandler={deleteAllHandler}
-                />
-                <Planner>
-                    <CardsWrapper>
-                        <Card className="monday" onClick={() => setFilter("monday")}>
-                            Monday
-                        </Card>
-                        <Card className="tuesday" onClick={() => setFilter("tuesday")}>
-                            Tuesday
-                        </Card>
-                        <Card className="wednesday" onClick={() => setFilter("wednesday")}>
-                            Wednesday
-                        </Card>
-                        <Card className="thursday" onClick={() => setFilter("thursday")}>
-                            Thursday
-                        </Card>
-                        <Card className="friday" onClick={() => setFilter("friday")}>
-                            Friday
-                        </Card>
-                        <Card className="saturday" onClick={() => setFilter("saturday")}>
-                            Saturday
-                        </Card>
-                        <Card className="sunday" onClick={() => setFilter("sunday")}>
-                            Sunday
-                        </Card>
-                    </CardsWrapper>
-                    <TimeTask taskTime="Time" color="white" />
+    setTasks(newTasks);
+  };
 
-                    <AllTasks tasks={filteredTasks} delItem={deleteItem} />
-                </Planner>
-            </MainContainer>
-        </Wrapper>
-    );
+  //function to delete specific tasks
+  const deleteItem = (id) => {
+    fetch(`https://latam-challenge-2.deta.dev/api/v1/events/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token.token}`,
+      },
+    }).then(() => {
+      resetState();
+    }).then((data) => {
+        notify(data);
+    });
+  };
+
+  //function to delete all tasks
+  const deleteAllHandler = () => {
+    fetch(
+      `https://latam-challenge-2.deta.dev/api/v1/events?dayOfWeek=${filter}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token.token}`,
+        },
+      }
+    ).then(() => {
+      resetState();
+    }).then((data) => {
+        notify(data);
+    });
+  };
+
+  //filter the tasks
+  const filteredTasks = tasks.filter((item) => {
+    return item.day === filter;
+  });
+
+  return (
+    <Wrapper>
+      <PlannerHeader />
+
+      <MainContainer>
+        <PlannerActions
+          getTaskDataRequest={getTaskDataRequest}
+          onSaveTaskData={addTaskHandler}
+          deleteDataHandler={deleteAllHandler}
+        />
+        <Planner>
+          <CardsWrapper>
+            <Card className="monday" onClick={() => setFilter("monday")}>
+              Monday
+            </Card>
+            <Card className="tuesday" onClick={() => setFilter("tuesday")}>
+              Tuesday
+            </Card>
+            <Card className="wednesday" onClick={() => setFilter("wednesday")}>
+              Wednesday
+            </Card>
+            <Card className="thursday" onClick={() => setFilter("thursday")}>
+              Thursday
+            </Card>
+            <Card className="friday" onClick={() => setFilter("friday")}>
+              Friday
+            </Card>
+            <Card className="saturday" onClick={() => setFilter("saturday")}>
+              Saturday
+            </Card>
+            <Card className="sunday" onClick={() => setFilter("sunday")}>
+              Sunday
+            </Card>
+          </CardsWrapper>
+          <TimeTask taskTime="Time" color="white" />
+
+          <AllTasks tasks={filteredTasks} delItem={deleteItem} />
+        </Planner>
+      </MainContainer>
+
+    </Wrapper>
+  );
 }
 
 export default Dashboard;

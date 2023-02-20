@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-
 import { ActionsForm, InputsContainer, ButtonsContainer } from "./styled";
+
+import notify from '../../utils/notify';
 
 import InputPlanner from "./InputPlanner";
 import SelectPlanner from "./SelectPlanner";
@@ -21,7 +22,6 @@ function PlannerAction({ deleteDataHandler, getTaskDataRequest }) {
 
   //get the user token in the local storage
   const token = JSON.parse(localStorage.getItem("isLogged"));
-  console.log(token.token);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -40,11 +40,15 @@ function PlannerAction({ deleteDataHandler, getTaskDataRequest }) {
     })
       .then((res) => {
         getTaskDataRequest();
-        console.log(res);
         return res.json();
       })
-      .catch((data) => {
-        console.log(data);
+      .then((data) => {
+        if(data.message){
+            notify(data.message, 'error');
+            console.log("mamaco", data);   
+        } else {
+            notify("Success", 'success');  
+        }
       });
       setEnteredDay("monday");
       setEnteredDesc('');

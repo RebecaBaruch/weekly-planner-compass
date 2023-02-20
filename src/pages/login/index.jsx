@@ -1,8 +1,7 @@
 import React, { useState, useRef, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import notify from '../../utils/notify';
 
 import { FormWrapper, Form, MiddleWrapper, ImageForm, SubTitle, ErrorMessage, AccountLink } from '../../global/globalStyles';
 import { RegisterContext } from '../../context/register-hook';
@@ -25,19 +24,6 @@ function Login() {
 
     let emailRef = useRef();
     let passwordRef = useRef();
-
-    const notify = (message) => {
-        toast.error(message, {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            });
-    }
 
     //function for attr styles to the inputs errors
     const errorStyle = (emailRef, passwordRef) => {
@@ -63,7 +49,6 @@ function Login() {
             return res.json();
         })
         .then((data) => {
-            console.log(data);
             
             if(typeof data === 'object') {
                 if(data.message) {
@@ -73,7 +58,7 @@ function Login() {
                         errorStyle(emailRef, passwordRef);
                         setErrorExists(true);
                     }
-                    notify(data.message);
+                    notify(data.message, 'error');
                 }
 
                 const tokenData = {
