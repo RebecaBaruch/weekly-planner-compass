@@ -73,3 +73,15 @@ export const AccountLink = styled.span`
         color: #FF3D1F;
     }
 `
+
+export const LoadingScreen = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(100% 316.05% at 0% 50%, #060606 0%, #0B0B0B 49.99%, #060606 100%);
+    transition: 1s all ease-in-out; 
+    z-index: 10;
+`

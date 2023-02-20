@@ -2,7 +2,8 @@ import React, { useState, useContext, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 // import useInput from "../../helpers/user-input";
 
-import notify from '../../utils/notify';
+import notify from "../../utils/notify";
+import PropagateLoader from "react-spinners/PropagateLoader ";
 
 import {
   FormWrapper,
@@ -11,6 +12,7 @@ import {
   ImageForm,
   ErrorMessage,
   AccountLink,
+  LoadingScreen
 } from "../../global/globalStyles";
 import { RegisterContext } from "../../context/register-hook";
 import Label from "../../components/Label";
@@ -90,16 +92,15 @@ function Register() {
       body: JSON.stringify(userData),
     })
       .then((res) => {
+        setLoading(false);
         if ((res.status === 200) | (res.status === 201)) {
           navigate("/login");
         }
         return res.json();
       })
       .then((data) => {
-        notify(data, 'error');
+        notify(data, "error");
       });
-
-    setLoading(false);
   };
 
   //function for submitting data
@@ -178,120 +179,128 @@ function Register() {
   };
 
   return (
-    <FormWrapper>
-      <MiddleWrapper>
-        <Form onSubmit={formSubmissionHandler}>
-          <HeaderTitle title="Welcome,">
-            Please, register to continue
-          </HeaderTitle>
-          <Label>
-            first name
-            <InputData
-              type="text"
-              placeholder="Your first name"
-              name="firstName"
-              onChange={verifyDataHandler}
-              ref={firstNameRef}
-            />
-          </Label>
+    <>
+      {loading && (
+        <LoadingScreen>
+          <PropagateLoader color="#E9B425" size={20} loading={loading} />
+        </LoadingScreen>
+      )}
 
-          <Label>
-            last name
-            <InputData
-              type="text"
-              placeholder="Your last name"
-              name="lastName"
-              onChange={verifyDataHandler}
-              ref={lastNameRef}
-            />
-          </Label>
+      <FormWrapper>
+        <MiddleWrapper>
+          <Form onSubmit={formSubmissionHandler}>
+            <HeaderTitle title="Welcome,">
+              Please, register to continue
+            </HeaderTitle>
+            <Label>
+              first name
+              <InputData
+                type="text"
+                placeholder="Your first name"
+                name="firstName"
+                onChange={verifyDataHandler}
+                ref={firstNameRef}
+              />
+            </Label>
 
-          <Label>
-            birth date
-            <InputData
-              type="birth-date"
-              placeholder="MM/DD/YYYY"
-              name="birthDate"
-              onChange={verifyDataHandler}
-              onInput={birthDateHandler}
-              ref={birthDateRef}
-            />
-          </Label>
+            <Label>
+              last name
+              <InputData
+                type="text"
+                placeholder="Your last name"
+                name="lastName"
+                onChange={verifyDataHandler}
+                ref={lastNameRef}
+              />
+            </Label>
 
-          <Label>
-            Country
-            <InputData
-              type="text"
-              placeholder="Your Country"
-              name="country"
-              onChange={verifyDataHandler}
-              ref={countryRef}
-            />
-          </Label>
-          <Label>
-            City
-            <InputData
-              type="text"
-              placeholder="Your City"
-              name="city"
-              onChange={verifyDataHandler}
-              ref={cityRef}
-            />
-          </Label>
-          <Label>
-            e-mail
-            <InputData
-              type="email"
-              placeholder="A valid e-mail here"
-              name="email"
-              onChange={verifyDataHandler}
-              ref={emailRef}
-            />
-          </Label>
-          <Label>
-            password
-            <InputData
-              type="password"
-              placeholder="Your password"
-              name="password"
-              onChange={verifyDataHandler}
-              ref={passwordRef}
-            />
-          </Label>
-          <Label>
-            password
-            <InputData
-              type="password"
-              placeholder="Comfirm your password"
-              name="confirmPassword"
-              onChange={verifyDataHandler}
-              ref={confirmPasswordRef}
-            />
-          </Label>
+            <Label>
+              birth date
+              <InputData
+                type="birth-date"
+                placeholder="MM/DD/YYYY"
+                name="birthDate"
+                onChange={verifyDataHandler}
+                onInput={birthDateHandler}
+                ref={birthDateRef}
+              />
+            </Label>
 
-          {errorExists && (
-            <ErrorMessage>Please, enter with correct data!</ErrorMessage>
-          )}
+            <Label>
+              Country
+              <InputData
+                type="text"
+                placeholder="Your Country"
+                name="country"
+                onChange={verifyDataHandler}
+                ref={countryRef}
+              />
+            </Label>
+            <Label>
+              City
+              <InputData
+                type="text"
+                placeholder="Your City"
+                name="city"
+                onChange={verifyDataHandler}
+                ref={cityRef}
+              />
+            </Label>
+            <Label>
+              e-mail
+              <InputData
+                type="email"
+                placeholder="A valid e-mail here"
+                name="email"
+                onChange={verifyDataHandler}
+                ref={emailRef}
+              />
+            </Label>
+            <Label>
+              password
+              <InputData
+                type="password"
+                placeholder="Your password"
+                name="password"
+                onChange={verifyDataHandler}
+                ref={passwordRef}
+              />
+            </Label>
+            <Label>
+              password
+              <InputData
+                type="password"
+                placeholder="Comfirm your password"
+                name="confirmPassword"
+                onChange={verifyDataHandler}
+                ref={confirmPasswordRef}
+              />
+            </Label>
 
-          <AccountButton type="submit" disabled={errorExists}>
-            Register Now
-          </AccountButton>
-        </Form>
+            {errorExists && (
+              <ErrorMessage>Please, enter with correct data!</ErrorMessage>
+            )}
 
-        <AccountLink>
-          <Link to="/login">
-            Have an account yet? <br></br>
-            <span>Login</span>
-          </Link>
-        </AccountLink>
-      </MiddleWrapper>
+            <AccountButton type="submit" disabled={errorExists}>
+              Register Now
+            </AccountButton>
+          </Form>
 
-      <ImageForm>
-        <a href="https://compass.uol/en/home/">
-          <img src={CompassLogo} alt="Compass logo" width="45%" />
-        </a>
-      </ImageForm>
-    </FormWrapper>
+          <AccountLink>
+            <Link to="/login">
+              Have an account yet? <br></br>
+              <span>Login</span>
+            </Link>
+          </AccountLink>
+        </MiddleWrapper>
+
+        <ImageForm>
+          <a href="https://compass.uol/en/home/">
+            <img src={CompassLogo} alt="Compass logo" width="45%" />
+          </a>
+        </ImageForm>
+      </FormWrapper>
+    </>
   );
 }
 
